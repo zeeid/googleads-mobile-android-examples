@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.gms.example.interstitialexample;
+package com.mubaraq.android.apps.pay.insurance;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -37,6 +37,8 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.mubaraq.android.apps.pay.insurance.R;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**

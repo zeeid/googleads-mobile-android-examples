@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'com.google.android.gms.example.interstitialexample'
-    compileSdkVersion 33
+    namespace 'com.mubaraq.android.apps.pay.insurance'
+    compileSdk 34
     defaultConfig {
-        applicationId "com.google.android.gms.example.interstitialexample"
+        applicationId "com.mubaraq.android.apps.pay.insurance"
         minSdkVersion 19
         multiDexEnabled true
-        targetSdkVersion 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
     }
@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '34.0.0'
 }
 
 dependencies {

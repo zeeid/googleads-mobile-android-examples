@@ -1,4 +1,4 @@
-package com.google.android.gms.example.interstitialexample;
+package com.mubaraq.android.apps.pay.insurance;
 
 import android.app.Activity;
 import android.content.Context;
