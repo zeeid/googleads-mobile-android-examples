@@ -29,7 +29,6 @@ public class FetchGeoIp extends AsyncTask<Void,Void,Void> {
 
         BufferedReader bufferedReader = null;
         try {
-            Log.e("CEKIP","MASUK SINI");
             URL url = new URL("http://ip-api.com/json/");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = httpURLConnection.getInputStream();
@@ -70,8 +69,12 @@ public class FetchGeoIp extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        Log.e("IP1", "onPostExecute: "+data);
-        Log.d("IP2", "onPostExecute: "+dataAll);
-        Home.data.setText(this.dataAll);
+        if (dataAll.isEmpty()) {
+            Home.data.setText("Tidak dapat memuat data. Periksa koneksi internet Anda.");
+        } else {
+            Log.d("IP1", "onPostExecute: " + data);
+            Log.d("IP2", "onPostExecute: " + dataAll);
+            Home.data.setText(this.dataAll);
+        }
     }
 }
