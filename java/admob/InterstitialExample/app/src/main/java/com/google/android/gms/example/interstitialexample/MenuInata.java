@@ -88,7 +88,7 @@ public class MenuInata extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+        setContentView(R.layout.activity_inata);
         viewBinds();
         CekDateUP();
         data();
