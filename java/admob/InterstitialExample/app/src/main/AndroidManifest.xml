@@ -19,7 +19,8 @@
         <activity
             android:exported="true"
             android:name=".Home"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,8 +28,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MenuInata" />
-        <activity android:name=".MenuBanana" />
+        <activity android:name=".MenuInata"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MenuBanana"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MenuSetting"
+                  android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

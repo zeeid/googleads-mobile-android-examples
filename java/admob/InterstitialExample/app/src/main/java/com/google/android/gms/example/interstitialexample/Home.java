@@ -120,6 +120,15 @@ public class Home extends AppCompatActivity {
                 cekIp();
             }
         });
+
+        Button buttonSetting = findViewById(R.id.button3);
+        buttonSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, MenuSetting.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void cekIp() {
