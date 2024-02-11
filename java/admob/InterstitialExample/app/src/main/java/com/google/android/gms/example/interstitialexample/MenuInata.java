@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 package com.google.android.gms.example.interstitialexample;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -39,15 +38,12 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * Main Activity. Inflates main activity xml.
- */
 @SuppressLint("SetTextI18n")
-public class MyActivity extends AppCompatActivity {
+public class MenuInata extends AppCompatActivity {
 
     private static final long GAME_LENGTH_MILLISECONDS = 3000;
     private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
-    private static final String TAG = "MyActivity";
+    private static final String TAG = "MenuInata";
 
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
     private GoogleMobileAdsConsentManager googleMobileAdsConsentManager;
@@ -64,14 +60,7 @@ public class MyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-        // Log the Mobile Ads SDK version.
         Log.d(TAG, "Google Mobile Ads SDK Version: " + MobileAds.getVersion());
-
-        // Initialize the Mobile Ads SDK.
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {}
-        });
 
         googleMobileAdsConsentManager =
             GoogleMobileAdsConsentManager.getInstance(getApplicationContext());
@@ -79,7 +68,6 @@ public class MyActivity extends AppCompatActivity {
             this,
             consentError -> {
                 if (consentError != null) {
-                    // Consent not obtained in current session.
                     Log.w(
                         TAG,
                         String.format(
@@ -95,17 +83,14 @@ public class MyActivity extends AppCompatActivity {
                 }
 
                 if (googleMobileAdsConsentManager.isPrivacyOptionsRequired()) {
-                    // Regenerate the options menu to include a privacy setting.
                     invalidateOptionsMenu();
                 }
             });
 
-        // This sample attempts to load ads using consent obtained in the previous session.
         if (googleMobileAdsConsentManager.canRequestAds()) {
             initializeMobileAdsSdk();
         }
 
-        // Create the "retry" button, which tries to show an interstitial between game plays.
         retryButton = findViewById(R.id.retry_button);
         retryButton.setVisibility(View.INVISIBLE);
         retryButton.setOnClickListener(new View.OnClickListener() {
@@ -116,8 +101,7 @@ public class MyActivity extends AppCompatActivity {
         });
     }
 
-  public void loadAd() {
-    // Request a new ad if one isn't already loaded.
+    private void loadAd() {
     if (adIsLoading || interstitialAd != null) {
       return;
     }
@@ -132,10 +116,10 @@ public class MyActivity extends AppCompatActivity {
           public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
             // The mInterstitialAd reference will be null until
             // an ad is loaded.
-            MyActivity.this.interstitialAd = interstitialAd;
+            MenuInata.this.interstitialAd = interstitialAd;
             adIsLoading = false;
             Log.i(TAG, "onAdLoaded");
-            Toast.makeText(MyActivity.this, "onAdLoaded()", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MenuInata.this, "onAdLoaded()", Toast.LENGTH_SHORT).show();
             interstitialAd.setFullScreenContentCallback(
                 new FullScreenContentCallback() {
                   @Override
@@ -143,7 +127,7 @@ public class MyActivity extends AppCompatActivity {
                     // Called when fullscreen content is dismissed.
                     // Make sure to set your reference to null so you don't
                     // show it a second time.
-                    MyActivity.this.interstitialAd = null;
+                    MenuInata.this.interstitialAd = null;
                     Log.d("TAG", "The ad was dismissed.");
                   }
 
@@ -152,7 +136,7 @@ public class MyActivity extends AppCompatActivity {
                     // Called when fullscreen content failed to show.
                     // Make sure to set your reference to null so you don't
                     // show it a second time.
-                    MyActivity.this.interstitialAd = null;
+                    MenuInata.this.interstitialAd = null;
                     Log.d("TAG", "The ad failed to show.");
                   }
 
@@ -179,15 +163,13 @@ public class MyActivity extends AppCompatActivity {
                     loadAdError.getCode(),
                     loadAdError.getMessage());
             Toast.makeText(
-                    MyActivity.this, "onAdFailedToLoad() with error: " + error, Toast.LENGTH_SHORT)
+                    MenuInata.this, "onAdFailedToLoad() with error: " + error, Toast.LENGTH_SHORT)
                 .show();
           }
         });
   }
 
     private void createTimer(final long milliseconds) {
-        // Create the game timer, which counts down to the end of the level
-        // and shows the "retry" button.
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
@@ -214,7 +196,6 @@ public class MyActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        // Start or resume the game.
         super.onResume();
         resumeGame();
     }
@@ -243,7 +224,6 @@ public class MyActivity extends AppCompatActivity {
             popupMenuItem -> {
                 if (popupMenuItem.getItemId() == R.id.privacy_settings) {
                     pauseGame();
-                    // Handle changes to user consent.
                     googleMobileAdsConsentManager.showPrivacyOptionsForm(
                           this,
                           formError -> {
@@ -304,7 +284,6 @@ public class MyActivity extends AppCompatActivity {
           return;
         }
 
-        // Initialize the Mobile Ads SDK.
         MobileAds.initialize(
               this,
               new OnInitializationCompleteListener() {

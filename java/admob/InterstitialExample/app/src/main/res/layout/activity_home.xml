@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MenuInata"
+    tools:ignore="MergeRootFrame">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Package Name Disini"
+        android:textStyle="bold|italic"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/buttonBanana"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+
+        android:text="BANANA"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/buttoninata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttonBanana"
+
+        android:text="INTERTITIAL"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/buttonRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttoninata"
+        android:layout_centerHorizontal="true"
+
+        android:text="Refresh"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttonRefresh"
+        android:text="TextView"
+        tools:ignore="HardcodedText" />
+
+</RelativeLayout>
