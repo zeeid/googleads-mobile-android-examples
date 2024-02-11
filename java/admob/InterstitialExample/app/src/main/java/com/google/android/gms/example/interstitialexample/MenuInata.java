@@ -15,8 +15,11 @@
  */
 package com.google.android.gms.example.interstitialexample;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,7 +39,24 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import com.google.android.gms.example.interstitialexample.data.InterstialMe;
+import com.google.android.gms.example.interstitialexample.data.VARIABELS;
+
+import static com.google.android.gms.example.interstitialexample.data.InterstialMe.BERHASIL;
+import static com.google.android.gms.example.interstitialexample.data.InterstialMe.DATE;
+import static com.google.android.gms.example.interstitialexample.data.InterstialMe.GAGAL;
+import static com.google.android.gms.example.interstitialexample.data.InterstialMe.OPEN;
+import static com.google.android.gms.example.interstitialexample.data.InterstialMe.RATE;
+import static com.google.android.gms.example.interstitialexample.data.InterstialMe.SHOW;
+import static com.google.android.gms.example.interstitialexample.data.InterstialMe.IMPRESSED;
+import static com.google.android.gms.example.interstitialexample.data.InterstialMe.saveString;
 
 @SuppressLint("SetTextI18n")
 public class MenuInata extends AppCompatActivity {
@@ -55,10 +75,23 @@ public class MenuInata extends AppCompatActivity {
     private boolean adIsLoading;
     private long timerMilliseconds;
 
+
+    public final String RELOADE="reload";
+    public boolean reload=false,autoclose,autoreload,IsIndo;
+    public boolean rotation,vpnprot,indoprot,keepgoing,mixbanerinter,usetestunit;
+    public int maxsuccess = 1, maxfail = 1;
+    public int gagalt=0,berhasilt=0,cik=0,show=0,impressed = 0;
+    public String ratess,AdsUnitID;
+    Button sett;
+    TextView berhasil,gagal,auto,categori,close,tanggalan,adopen,rate,showon,times,impreson,logprogram;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+        viewBinds();
+        CekDateUP();
+        data();
 
         Log.d(TAG, "Google Mobile Ads SDK Version: " + MobileAds.getVersion());
 
@@ -99,6 +132,14 @@ public class MenuInata extends AppCompatActivity {
                 showInterstitial();
             }
         });
+
+        Button buttonreset = findViewById(R.id.reset);
+        buttonreset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetResult();
+            }
+        });
     }
 
     private void loadAd() {
@@ -120,8 +161,21 @@ public class MenuInata extends AppCompatActivity {
             adIsLoading = false;
             Log.i(TAG, "onAdLoaded");
             Toast.makeText(MenuInata.this, "onAdLoaded()", Toast.LENGTH_SHORT).show();
+              berhasilt++;
+              InterstialMe.saveInteger(BERHASIL,berhasilt,MenuInata.this);
+              dataC();
             interstitialAd.setFullScreenContentCallback(
                 new FullScreenContentCallback() {
+
+                    @Override
+                    public void onAdClicked() {
+                        // Called when a click is recorded for an ad.
+                        Log.d("TAG", "Ad was clicked.");
+                        cik++;
+                        InterstialMe.saveInteger(OPEN,cik,MenuInata.this);
+                        dataC();
+                    }
+
                   @Override
                   public void onAdDismissedFullScreenContent() {
                     // Called when fullscreen content is dismissed.
@@ -140,20 +194,37 @@ public class MenuInata extends AppCompatActivity {
                     Log.d("TAG", "The ad failed to show.");
                   }
 
-                  @Override
+                    @Override
+                    public void onAdImpression() {
+                        // Called when an impression is recorded for an ad.
+                        Log.d("INFO", "Ad recorded an impression.");
+                        impressed++;
+                        InterstialMe.saveInteger(IMPRESSED,impressed,MenuInata.this);
+                        dataC();
+                    }
+
+                    @Override
                   public void onAdShowedFullScreenContent() {
                     // Called when fullscreen content is shown.
                     Log.d("TAG", "The ad was shown.");
+                    show++;
+                    InterstialMe.saveInteger(SHOW,show,MenuInata.this);
+                    dataC();
                   }
                 });
           }
 
+          @SuppressLint("SuspiciousIndentation")
           @Override
           public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
             // Handle the error
             Log.i(TAG, loadAdError.getMessage());
             interstitialAd = null;
             adIsLoading = false;
+
+              gagalt++;
+              InterstialMe.saveInteger(GAGAL,gagalt,MenuInata.this);
+              dataC();
 
             String error =
                 String.format(
@@ -293,5 +364,99 @@ public class MenuInata extends AppCompatActivity {
                       loadAd();
                   }
               });
+    }
+
+
+    public void viewBinds(){
+        berhasil=findViewById(R.id.succsestotint);
+        gagal=findViewById(R.id.failtotint);
+        adopen=findViewById(R.id.adopenBanint);
+        tanggalan=findViewById(R.id.tanggalint);
+        rate=findViewById(R.id.rateSBanint);
+        auto=findViewById(R.id.A11);
+        close=findViewById(R.id.timeautoReloadINTERTV);
+        categori=findViewById(R.id.keywordInter);
+        logprogram=findViewById(R.id.logprogram);
+        sett=findViewById(R.id.set_interes);
+        showon=findViewById(R.id.shoewint);
+        impreson=findViewById(R.id.impresint);
+        times=findViewById(R.id.timede);
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void data(){
+        gagalt= InterstialMe.getInteger(GAGAL,this);
+        berhasilt=InterstialMe.getInteger(BERHASIL,this);
+        cik=InterstialMe.getInteger(OPEN,this);
+        ratess=InterstialMe.getString(RATE,this);
+        show=InterstialMe.getInteger(SHOW,this);
+        impressed=InterstialMe.getInteger(IMPRESSED,this);
+
+
+//        autoclose=VARIABELS.getBool(SettingAct.AUTORELOADINTER,this);
+//        autoreload=VARIABELS.getBool(SettingAct.AUTORELOADINTER,this);
+//        reload=getBool(RELOADE,this);
+
+        tanggalan.setText("Estimates calculation in :\n"+InterstialMe.getString(DATE,this));
+//        if(VARIABELS.getBool(SettingAct.AUTORELOADINTER,this)){
+//            auto.setText("AUTO RELOAD ACTIVE");
+//        }else {
+//            auto.setText("AUTO RELOAD OFF");
+//            times.setText("");
+//        }
+//        if(VARIABELS.getBool(SettingAct.AUTORELOADINTER,this)){
+//            close.setText("AUTO CLOSE AD ACTIVE ");
+//        }else{
+//            close.setText("AUTO CLOSE AD OFF");
+//        }
+//        categori.setText("Keyword : "+VARIABELS.getString(SettingAct.CATEGORYAD,InataActivity.this,getString(R.string.app_name)));
+        berhasil.setText("LOAD :"+berhasilt);
+        gagal.setText("FAILED :"+gagalt);
+        adopen.setText("CLICK :"+cik);
+        rate.setText("CTR :"+ratess+"%");
+        showon.setText("SHOW :"+show);
+        impreson.setText("IMPRES :"+impressed);
+    }
+
+    public void dataC(){
+        float total = ((float)cik/(float)show)*100;
+        DecimalFormat df = new DecimalFormat("####.##");
+        ratess = df.format(total);
+        saveString(RATE,ratess,this);
+        CekDateUP();
+        data();
+    }
+    public void CekDateUP(){
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy");
+        String date = df.format(Calendar.getInstance().getTime());
+        if(!date.equals(InterstialMe.getString(DATE,this))){
+            saveString(DATE,date,this);
+            resetResult();
+
+        }else{
+            saveString(DATE,date,this);
+        }
+    }
+    public void resetResult(){
+        InterstialMe.saveInteger(SHOW,0,MenuInata.this);
+        InterstialMe.saveInteger(GAGAL,0,MenuInata.this);
+        InterstialMe.saveInteger(BERHASIL,0,MenuInata.this);
+        InterstialMe.saveInteger(OPEN,0,MenuInata.this);
+        InterstialMe.saveInteger(IMPRESSED,0,MenuInata.this);
+        saveString(RATE,"0",this);
+        data();
+        CekDateUP();
+    }
+    @SuppressLint("ApplySharedPref")
+    public static void saveBool(String key, Boolean value, Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+    @NonNull
+    public static Boolean getBool(String key, Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getBoolean(key, false);
     }
 }
