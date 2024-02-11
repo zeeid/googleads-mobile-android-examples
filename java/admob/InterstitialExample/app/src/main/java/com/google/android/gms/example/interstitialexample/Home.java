@@ -24,6 +24,8 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.google.android.gms.example.interstitialexample.data.FetchGeoIp;
+
 public class Home extends AppCompatActivity {
     public static TextView data;
     private static final String TAG = "Home Activity";
@@ -90,7 +92,7 @@ public class Home extends AppCompatActivity {
         }
 
         viewLayout();
-//        cekIp();
+        cekIp();
 //        checkPermissions();
 
         Button buttonInata = findViewById(R.id.buttoninata);
@@ -110,8 +112,20 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button buttonRefresh = findViewById(R.id.buttonRefresh);
+        buttonRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cekIp();
+            }
+        });
     }
 
+    private void cekIp() {
+        FetchGeoIp process = new FetchGeoIp();
+        process.execute();
+    }
     @Override
     public void onResume() {
         // Start or resume the game.

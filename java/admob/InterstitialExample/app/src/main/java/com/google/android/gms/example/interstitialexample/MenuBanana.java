@@ -160,6 +160,16 @@ public class MenuBanana extends AppCompatActivity {
         super.onDestroy();
     }
 
+    public void onBackPressed() {
+        if (adView1 != null) {
+            adView1.destroy();
+        }
+        if (adView2 != null) {
+            adView2.destroy();
+        }
+        super.onBackPressed();
+    }
+
     private void loadBanners() {
         // Create new ad views.
         adView1 = new AdView(this);
