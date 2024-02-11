@@ -101,6 +101,15 @@ public class Home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button buttonBanana = findViewById(R.id.buttonBanana);
+        buttonBanana.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, MenuBanana.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

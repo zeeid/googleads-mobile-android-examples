@@ -25,8 +25,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Inata_activity" />
         <activity android:name=".MenuInata" />
+        <activity android:name=".MenuBanana" />
     </application>
 
 </manifest>
