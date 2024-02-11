@@ -143,6 +143,7 @@ public class MenuInata extends AppCompatActivity {
     }
 
     private void loadAd() {
+        logprogram.setText("Log : Memuat iklan interstitial");
     if (adIsLoading || interstitialAd != null) {
       return;
     }
@@ -159,18 +160,19 @@ public class MenuInata extends AppCompatActivity {
             // an ad is loaded.
             MenuInata.this.interstitialAd = interstitialAd;
             adIsLoading = false;
-            Log.i(TAG, "onAdLoaded");
+
             Toast.makeText(MenuInata.this, "onAdLoaded()", Toast.LENGTH_SHORT).show();
               berhasilt++;
               InterstialMe.saveInteger(BERHASIL,berhasilt,MenuInata.this);
               dataC();
+              logprogram.setText("Log : Berhasil Memuat iklan interstitial");
             interstitialAd.setFullScreenContentCallback(
                 new FullScreenContentCallback() {
 
                     @Override
                     public void onAdClicked() {
                         // Called when a click is recorded for an ad.
-                        Log.d("TAG", "Ad was clicked.");
+                        logprogram.setText("Log : Ad was clicked.");
                         cik++;
                         InterstialMe.saveInteger(OPEN,cik,MenuInata.this);
                         dataC();
@@ -182,7 +184,7 @@ public class MenuInata extends AppCompatActivity {
                     // Make sure to set your reference to null so you don't
                     // show it a second time.
                     MenuInata.this.interstitialAd = null;
-                    Log.d("TAG", "The ad was dismissed.");
+                      logprogram.setText("Log : The ad was dismissed.");
                   }
 
                   @Override
@@ -192,12 +194,13 @@ public class MenuInata extends AppCompatActivity {
                     // show it a second time.
                     MenuInata.this.interstitialAd = null;
                     Log.d("TAG", "The ad failed to show.");
+                      logprogram.setText("Log : The ad failed to show.");
                   }
 
                     @Override
                     public void onAdImpression() {
                         // Called when an impression is recorded for an ad.
-                        Log.d("INFO", "Ad recorded an impression.");
+                        logprogram.setText("Log : Ad recorded an impression.");
                         impressed++;
                         InterstialMe.saveInteger(IMPRESSED,impressed,MenuInata.this);
                         dataC();
@@ -206,7 +209,7 @@ public class MenuInata extends AppCompatActivity {
                     @Override
                   public void onAdShowedFullScreenContent() {
                     // Called when fullscreen content is shown.
-                    Log.d("TAG", "The ad was shown.");
+                        logprogram.setText("Log : The ad was shown.");
                     show++;
                     InterstialMe.saveInteger(SHOW,show,MenuInata.this);
                     dataC();
@@ -233,9 +236,9 @@ public class MenuInata extends AppCompatActivity {
                     loadAdError.getDomain(),
                     loadAdError.getCode(),
                     loadAdError.getMessage());
-            Toast.makeText(
-                    MenuInata.this, "onAdFailedToLoad() with error: " + error, Toast.LENGTH_SHORT)
-                .show();
+            Toast.makeText(MenuInata.this, "onAdFailedToLoad() with error: " + error, Toast.LENGTH_SHORT).show();
+
+              logprogram.setText("Log : Error "+error);
           }
         });
   }
