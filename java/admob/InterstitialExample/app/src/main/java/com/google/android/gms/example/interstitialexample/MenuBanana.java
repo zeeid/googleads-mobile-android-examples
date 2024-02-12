@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -66,11 +67,22 @@ public class MenuBanana extends AppCompatActivity {
     public boolean sedang=false,asd,IsIndo;
     public boolean rotation,vpnprot,indoprot,keepgoing,mixbanerinter,usetestunit;
     public int maxsuccess = 1, maxfail = 1;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banana);
+
+        rotation        = VARIABELS.getBool(MenuSetting.ROTATION,this);
+        mixbanerinter   = VARIABELS.getBool(MenuSetting.MIXBANERINTER,this);
+        usetestunit     = VARIABELS.getBool(MenuSetting.USETESTUNIT,this);
+        vpnprot         = VARIABELS.getBool(MenuSetting.VPNPROT,this);
+        indoprot        = VARIABELS.getBool(MenuSetting.INDOPROT,this);
+        keepgoing       = VARIABELS.getBool(MenuSetting.KEEPGOING,this);
+
+        maxsuccess      = VARIABELS.getInteger(MenuSetting.MAXLOAD,this,1);
+        maxfail         = VARIABELS.getInteger(MenuSetting.MINLOAD,this,1);
 
         CekDateUP();
         viewBinds();
@@ -216,16 +228,76 @@ public class MenuBanana extends AppCompatActivity {
     }
 
     public void onBackPressed() {
+
+        if(countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+
         if (adView1 != null) {
             adView1.destroy();
         }
         if (adView2 != null) {
             adView2.destroy();
         }
-        super.onBackPressed();
+
+        if (isTaskRoot()) {
+            // Jika aktivitas ini adalah aktivitas teratas (tidak ada aktivitas lain dalam tumpukan)
+            // tambahkan logika untuk membuka menu Home activity atau lakukan tindakan yang sesuai.
+            // Misalnya:
+            Intent intent = new Intent(this, Home.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish(); // Selesai dengan aktivitas ini
+        } else {
+            finish();
+            super.onBackPressed(); // Panggil perilaku default jika tidak ada dalam tumpukan teratas
+        }
+    }
+
+    public void AutoReload(){
+        if (countDownTimer == null) countDownTimer =  new CountDownTimer(VARIABELS.getInteger(MenuSetting.DURATIONRELOADBANNER,this,60)*1000, 1000) {
+
+            @SuppressLint("SetTextI18n")
+            public void onTick(long millisUntilFinished) {
+                sedang=true;
+                if (VARIABELS.getBool(MenuSetting.AUTORELOADBANNER,MenuBanana.this)){
+                    jumato.setText("in :"+((millisUntilFinished/1000)-1)+" second");
+                }
+
+            }
+
+            public void onFinish() {
+
+                if (VARIABELS.getBool(MenuSetting.AUTORELOADBANNER,MenuBanana.this)){
+                    if (adView1 != null) {
+                        adView1.destroy();
+                    }
+                    if (adView2 != null) {
+                        adView2.destroy();
+                    }
+
+                    // Menutup aktivitas saat ini
+                    finish();
+                    Intent intent;
+                    if (mixbanerinter){
+                        // Membuka BananaFixedActivity
+                        intent = new Intent(MenuBanana.this, MenuInata.class);
+                    }else{
+                        intent = new Intent(MenuBanana.this, MenuBanana.class);
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+
+                }
+            }
+        }.start();
     }
 
     private void setAdListeners() {
+        if (VARIABELS.getBool(MenuSetting.AUTORELOADBANNER,this)){
+            AutoReload();
+        }
         AdListener adListener = new AdListener() {
             @Override
             public void onAdClicked() {
@@ -322,7 +394,9 @@ public class MenuBanana extends AppCompatActivity {
                 this,
                 new OnInitializationCompleteListener() {
                     @Override
-                    public void onInitializationComplete(InitializationStatus initializationStatus) {}
+                    public void onInitializationComplete(InitializationStatus initializationStatus) {
+                        //Log.e("IKLAN","initializeMobileAdsSdk KOMPLITE");
+                    }
                 });
 
         // Load the banners.
