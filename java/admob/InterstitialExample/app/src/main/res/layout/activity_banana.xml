@@ -10,23 +10,190 @@
     android:layout_marginRight="@dimen/activity_horizontal_margin"
     tools:ignore="MergeRootFrame">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:text="@string/hello_world" />
-
-    <FrameLayout
-        android:id="@+id/ad_view_container1"
+    <LinearLayout
+        android:id="@+id/satata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:orientation="horizontal">
 
-    <FrameLayout
-        android:id="@+id/ad_view_container2"
+        <TextView
+            android:id="@+id/succsestot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/failtot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/adopenBan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/satatax"
+        android:layout_below="@+id/satata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/ad_view_container1" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/impression"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Impression"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/opened"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Opened"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/satatax"
+        android:id="@+id/satata2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tanggal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="\n"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/rateSBan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="\n"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wawa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/set_banner"
+                style="@android:style/Widget.Holo.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Setting"
+                android:textAllCaps="false"
+                tools:ignore="RtlCompat" />
+
+            <Button
+                android:id="@+id/set_reset"
+                style="@android:style/Widget.Holo.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+
+                android:text="Reset Estimate"
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/autoReloads"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_below="@id/autoReloads"
+                android:id="@+id/timereload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/jumlahbanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/timereload"
+                android:text="TextView"
+                android:textStyle="italic" />
+            <TextView
+                android:layout_below="@id/jumlahbanner"
+                android:id="@+id/categoryban"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/sizebanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/categoryban"
+                android:text=""
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/satata2"
+        android:layout_above="@+id/wawa">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Your other views here -->
+
+            <FrameLayout
+                android:id="@+id/ad_view_container1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false" />
+
+            <FrameLayout
+                android:id="@+id/ad_view_container2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/ad_view_container1" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
 
 </RelativeLayout>

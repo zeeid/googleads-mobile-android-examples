@@ -16,6 +16,7 @@
 package com.google.android.gms.example.interstitialexample;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -138,6 +139,15 @@ public class MenuInata extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resetResult();
+            }
+        });
+
+        Button buttonsetting = findViewById(R.id.set_interes);
+        buttonsetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuInata.this, MenuSetting.class);
+                startActivity(intent);
             }
         });
     }

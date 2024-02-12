@@ -1,24 +1,41 @@
 package com.google.android.gms.example.interstitialexample;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import com.google.android.gms.example.interstitialexample.data.VARIABELS;
 
 /** Main Activity. Inflates main activity xml and child fragments. */
 public class MenuBanana extends AppCompatActivity {
@@ -35,10 +52,31 @@ public class MenuBanana extends AppCompatActivity {
     private FrameLayout adContainerView2;
     private AtomicBoolean initialLayoutComplete = new AtomicBoolean(false);
 
+    private int sizebans;
+    private int banyak;
+    TextView berhasil,gagal,auto,jumato,jumbanner,categori,size,tanggalan,adopen,rate,impression,opened;
+
+    private static final String DATE="yyasd",GG="gsdag",BB="beqrewb",CIK="casdfsc",CT="crewt",IMP="imasfdpr",
+            IMPRESSION="impression",
+            OPENED ="opened";
+
+    public int gagalt=0,berhasilt=0,impre=0,cik=0,openedt=0,impressiont=0;
+    public String ratess,AdsUnitID;
+
+    public boolean sedang=false,asd,IsIndo;
+    public boolean rotation,vpnprot,indoprot,keepgoing,mixbanerinter,usetestunit;
+    public int maxsuccess = 1, maxfail = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banana);
+
+        CekDateUP();
+        viewBinds();
+        data();
+
+
         adContainerView1 = findViewById(R.id.ad_view_container1);
         adContainerView2 = findViewById(R.id.ad_view_container2);
 
@@ -83,6 +121,23 @@ public class MenuBanana extends AppCompatActivity {
                                 loadBanners();
                             }
                         });
+
+        Button buttonreset = findViewById(R.id.set_reset);
+        buttonreset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetResult();
+            }
+        });
+
+        Button buttonsetting = findViewById(R.id.set_banner);
+        buttonsetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuBanana.this, MenuSetting.class);
+                startActivity(intent);
+            }
+        });
 
         // Set your test devices. Check your logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
@@ -170,6 +225,67 @@ public class MenuBanana extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    private void setAdListeners() {
+        AdListener adListener = new AdListener() {
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+                cik++;
+                saveInteger(CIK,cik,MenuBanana.this);
+                adopen.setText("CLICK :"+cik);
+                cekRate();
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+            }
+
+            @Override
+            public void onAdFailedToLoad(LoadAdError adError) {
+                // Code to be executed when an ad request fails.
+                gagalt++;
+                saveInteger(GG,gagalt,MenuBanana.this);
+                gagal.setText("FAILED :"+gagalt);
+            }
+
+            @Override
+            public void onAdImpression() {
+                // Code to be executed when an impression is recorded
+                // for an ad.
+                impre++;
+                saveInteger(IMP,impre,MenuBanana.this);
+
+                impressiont++;
+                saveInteger(IMPRESSION,impressiont,MenuBanana.this);
+                impression.setText("IMPRES :"+impressiont);
+            }
+
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                berhasilt++;
+                saveInteger(BB,berhasilt,MenuBanana.this);
+                berhasil.setText("LOAD :"+berhasilt);
+                cekRate();
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+                openedt++;
+                saveInteger(OPENED,openedt,MenuBanana.this);
+                opened.setText("OPENED :"+openedt);
+                cekRate();
+            }
+        };
+
+        adView1.setAdListener(adListener);
+        adView2.setAdListener(adListener);
+    }
+
     private void loadBanners() {
         // Create new ad views.
         adView1 = new AdView(this);
@@ -186,6 +302,9 @@ public class MenuBanana extends AppCompatActivity {
 
         adContainerView2.removeAllViews();
         adContainerView2.addView(adView2);
+
+        // Set AdListeners for both AdViews
+        setAdListeners();
 
         // Start loading the ads in the background.
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -228,5 +347,118 @@ public class MenuBanana extends AppCompatActivity {
 
         int adWidth = (int) (adWidthPixels / density);
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void data(){
+
+        tanggalan.setText("Estimates calculation in :\n"+getString(DATE,this));
+        berhasilt = getInteger(BB, this);
+        gagalt=getInteger(GG,this);
+        impressiont=getInteger(IMPRESSION,this);
+        openedt=getInteger(OPENED,this);
+        impre=getInteger(IMP,this);
+        cik=getInteger(CIK,this);
+        ratess = getString(CT, this);
+
+        cekRate();
+
+        berhasil.setText("LOAD :"+berhasilt);
+        gagal.setText("FAILED :"+gagalt);
+        impression.setText("IMPRES :"+impressiont);
+        opened.setText("OPENED :"+openedt);
+        adopen.setText("CLICK :"+cik);
+        banyak=VARIABELS.getInteger(MenuSetting.TOTALBANNER,this,1);
+        jumbanner.setText("Total ad per imprs :"+banyak);
+        if(VARIABELS.getBool(MenuSetting.AUTORELOADBANNER,this)){
+            auto.setText("AUTO RELOAD ACTIVE");
+            jumato.setText("in :"+VARIABELS.getInteger(MenuSetting.DURATIONRELOADBANNER,this,60)+" second");
+        }else{
+            auto.setText("AUTO RELOAD DEACTIVE");
+            jumato.setText("NULL");
+        }
+        categori.setText("keyword ad : "+VARIABELS.getString(MenuSetting.CATEGORYAD,this,getString(R.string.app_name)));
+        //size.setText(BannerSetting.getStringBan(BannerSetting.SIZEBANNER,this));
+        sizebans=VARIABELS.getInteger(MenuSetting.SIZEBANNER,this,6);
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void resetResult(){
+        saveInteger(GG,0,this);
+        saveInteger(CIK,0,this);
+        saveInteger(BB,0,this);
+        saveInteger(IMP,0,this);
+        saveString(CT,"0",this);
+        saveInteger(IMPRESSION,0,this);
+        saveInteger(OPENED,0,this);
+
+        cekRate();
+        adopen.setText("CLICK : 0");
+        gagal.setText("FAILED : 0");
+        impression.setText("IMPRES : 0");
+        berhasil.setText("LOAD : 0");
+        opened.setText("OPENED : 0");
+        rate.setText("CTR : 0%");
+
+    }
+
+    public void viewBinds(){
+        berhasil=findViewById(R.id.succsestot);
+        gagal=findViewById(R.id.failtot);
+        impression = findViewById(R.id.impression);
+        opened = findViewById(R.id.opened);
+        auto=findViewById(R.id.autoReloads);
+        adopen=findViewById(R.id.adopenBan);
+        jumato=findViewById(R.id.timereload);
+        jumbanner=findViewById(R.id.jumlahbanner);
+        categori=findViewById(R.id.categoryban);
+        size=findViewById(R.id.sizebanner);
+        rate=findViewById(R.id.rateSBan);
+        tanggalan=findViewById(R.id.tanggal);
+    }
+
+    public void CekDateUP(){
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy");
+        String date = df.format(Calendar.getInstance().getTime());
+        if(!date.equals(getString(DATE, this))){
+            resetResult();
+            saveString(DATE,date,this);
+        }else{
+            saveString(DATE,date,this);
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void cekRate(){
+
+        float total = ((float)cik/(float)berhasilt)*100;
+        DecimalFormat df = new DecimalFormat("####.##");
+        ratess = df.format(total);
+        saveString(CT,ratess,MenuBanana.this);
+        rate.setText("CTR :"+ratess+"%");
+    }
+    @SuppressLint("ApplySharedPref")
+    public void saveString(String key, String value, Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
+    public static String getString(String key, Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(key, "empty");
+    }
+
+    @SuppressLint("ApplySharedPref")
+    public void saveInteger(String key, Integer value, Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(key,value);
+        editor.commit();
+    }
+    public static int getInteger(String key, Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getInt(key, 0);
     }
 }
