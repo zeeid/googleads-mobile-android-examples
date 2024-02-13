@@ -315,7 +315,10 @@ public class MenuInata extends AppCompatActivity {
                 textView.setText("done!");
                 retryButton.setVisibility(View.VISIBLE);
 
-                retryButton.performClick();
+                if(autoclose) {
+                    retryButton.performClick();
+                }
+
             }
         };
 
