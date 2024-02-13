@@ -62,14 +62,14 @@ import static com.google.android.gms.example.interstitialexample.data.Interstial
 @SuppressLint("SetTextI18n")
 public class MenuInata extends AppCompatActivity {
 
-    private static final long GAME_LENGTH_MILLISECONDS = 3000;
+    private static final long GAME_LENGTH_MILLISECONDS = 9000;
     private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
     private static final String TAG = "MenuInata";
 
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
     private GoogleMobileAdsConsentManager googleMobileAdsConsentManager;
     private InterstitialAd interstitialAd;
-    private CountDownTimer countDownTimer;
+    private CountDownTimer countDownTimer, countDownTimerAR;
     private Button retryButton;
     private boolean gamePaused;
     private boolean gameOver;
@@ -87,12 +87,41 @@ public class MenuInata extends AppCompatActivity {
     TextView berhasil,gagal,auto,categori,close,tanggalan,adopen,rate,showon,times,impreson,logprogram;
 
     @Override
+    public void onBackPressed() {
+        if(countDownTimerAR != null) {
+            countDownTimerAR.cancel();
+            countDownTimerAR = null;
+        }
+
+
+        if (isTaskRoot()) {
+            // Jika aktivitas ini adalah aktivitas teratas (tidak ada aktivitas lain dalam tumpukan)
+            // tambahkan logika untuk membuka menu Home activity atau lakukan tindakan yang sesuai.
+            // Misalnya:
+            Intent intent = new Intent(this, Home.class);
+            startActivity(intent);
+            finish(); // Selesai dengan aktivitas ini
+        } else {
+            super.onBackPressed(); // Panggil perilaku default jika tidak ada dalam tumpukan teratas
+        }
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inata);
         viewBinds();
         CekDateUP();
         data();
+
+        rotation        = VARIABELS.getBool(MenuSetting.ROTATION,this);
+        mixbanerinter   = VARIABELS.getBool(MenuSetting.MIXBANERINTER,this);
+        usetestunit     = VARIABELS.getBool(MenuSetting.USETESTUNIT,this);
+        vpnprot         = VARIABELS.getBool(MenuSetting.VPNPROT,this);
+        indoprot        = VARIABELS.getBool(MenuSetting.INDOPROT,this);
+        keepgoing       = VARIABELS.getBool(MenuSetting.KEEPGOING,this);
+
+        maxsuccess  = VARIABELS.getInteger(MenuSetting.MAXLOAD,this,1);
+        maxfail     = VARIABELS.getInteger(MenuSetting.MINLOAD,this,1);
 
         Log.d(TAG, "Google Mobile Ads SDK Version: " + MobileAds.getVersion());
 
@@ -114,6 +143,7 @@ public class MenuInata extends AppCompatActivity {
 
                 if (googleMobileAdsConsentManager.canRequestAds()) {
                     initializeMobileAdsSdk();
+                    Log.e("DISINI","MASUK SINI 1");
                 }
 
                 if (googleMobileAdsConsentManager.isPrivacyOptionsRequired()) {
@@ -122,6 +152,7 @@ public class MenuInata extends AppCompatActivity {
             });
 
         if (googleMobileAdsConsentManager.canRequestAds()) {
+            Log.e("DISINI","MASUK SINI 2");
             initializeMobileAdsSdk();
         }
 
@@ -176,6 +207,7 @@ public class MenuInata extends AppCompatActivity {
               InterstialMe.saveInteger(BERHASIL,berhasilt,MenuInata.this);
               dataC();
               logprogram.setText("Log : Berhasil Memuat iklan interstitial");
+
             interstitialAd.setFullScreenContentCallback(
                 new FullScreenContentCallback() {
 
@@ -214,6 +246,10 @@ public class MenuInata extends AppCompatActivity {
                         impressed++;
                         InterstialMe.saveInteger(IMPRESSED,impressed,MenuInata.this);
                         dataC();
+
+                        if(autoclose) {
+                            countDownTimeAR();
+                        }
                     }
 
                     @Override
@@ -249,6 +285,12 @@ public class MenuInata extends AppCompatActivity {
             Toast.makeText(MenuInata.this, "onAdFailedToLoad() with error: " + error, Toast.LENGTH_SHORT).show();
 
               logprogram.setText("Log : Error "+error);
+
+              if (keepgoing){
+                  if(autoclose) {
+                      countDownTimeAR();
+                  }
+              }
           }
         });
   }
@@ -272,6 +314,8 @@ public class MenuInata extends AppCompatActivity {
                 gameOver = true;
                 textView.setText("done!");
                 retryButton.setVisibility(View.VISIBLE);
+
+                retryButton.performClick();
             }
         };
 
@@ -365,6 +409,7 @@ public class MenuInata extends AppCompatActivity {
 
     private void initializeMobileAdsSdk() {
         if (isMobileAdsInitializeCalled.getAndSet(true)) {
+            Log.e("DISINI","MASUK DALAM");
           return;
         }
 
@@ -374,9 +419,42 @@ public class MenuInata extends AppCompatActivity {
                   @Override
                   public void onInitializationComplete(InitializationStatus initializationStatus) {
                       // Load an ad.
+                      Log.e("DISINI","MASUK DALAM BERHASIL");
                       loadAd();
                   }
               });
+    }
+
+    public void countDownTimeAR(){
+        if (countDownTimerAR == null) countDownTimerAR = new CountDownTimer(VARIABELS.getInteger(MenuSetting.DURATIONRELOADINTERSTITIAL,this,60)*1000, 1000) {
+
+            @SuppressLint("SetTextI18n")
+            public void onTick(long millisUntilFinished) {
+                times.setText(millisUntilFinished/1000+" s");
+            }
+
+            public void onFinish() {
+                if(autoclose){
+                    // Menutup aktivitas saat ini
+                    finish();
+
+                    if(countDownTimerAR != null) {
+                        countDownTimerAR.cancel();
+                        countDownTimerAR = null;
+                    }
+
+                    Intent intent;
+                    if (mixbanerinter){
+                        // Membuka BananaFixedActivity
+                        intent = new Intent(MenuInata.this, MenuBanana.class);
+                    }else{
+                        intent = new Intent(MenuInata.this, MenuInata.class);
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            }
+        }.start();
     }
 
 
