@@ -86,9 +86,13 @@ public class MenuSetting extends AppCompatActivity {
         }
         if(!maxload.getText().toString().isEmpty()){
             VARIABELS.saveInteger(MAXLOAD, Integer.valueOf(maxload.getText().toString()),this);
+        }else{
+            VARIABELS.saveInteger(MAXLOAD,VARIABELS.getInteger(MAXLOAD,this,10),this);
         }
         if(!minload.getText().toString().isEmpty()){
             VARIABELS.saveInteger(MINLOAD, Integer.valueOf(minload.getText().toString()),this);
+        }else{
+            VARIABELS.saveInteger(MINLOAD,VARIABELS.getInteger(MINLOAD,this,10),this);
         }
 
         VARIABELS.saveBool(AUTORELOADBANNER, autoReloadBan,this);
@@ -130,34 +134,6 @@ public class MenuSetting extends AppCompatActivity {
         interstialID.setText(VARIABELS.getString(INTERSTITIALID,this,getString(R.string.TestIntertitialID)));
         categoryAD.setText(VARIABELS.getString(CATEGORYAD,this,getString(R.string.app_name)));
     }
-//    public void adsVio(){
-//
-//        final AdView mAdView = new AdView(this);
-//        mAdView.setAdSize(AdSize.MEDIUM_RECTANGLE);
-//        mAdView.setAdUnitId(getString(R.string.UnitBannerID));
-//        mAdView.setAdListener(new AdListener(){
-//            boolean load=true;
-//            @Override
-//            public void onAdFailedToLoad(int i) {
-//                super.onAdFailedToLoad(i);
-//            }
-//
-//            @Override
-//            public void onAdLoaded() {
-//                super.onAdLoaded();
-//                if(load){
-//                ads.addView(mAdView);
-//                load=false;
-//                }
-//            }
-//        });
-//
-//        AdRequest adRequest = new AdRequest.Builder()
-//                .addKeyword("bitcoin")
-//                .build();
-//        mAdView.loadAd(adRequest);
-//
-//    }
 
     public void logicsetting(){
         rotationboleansaved = VARIABELS.getBool(ROTATION,this);
