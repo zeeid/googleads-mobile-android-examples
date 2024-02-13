@@ -406,23 +406,23 @@ public class MenuInata extends AppCompatActivity {
         impressed=InterstialMe.getInteger(IMPRESSED,this);
 
 
-//        autoclose=VARIABELS.getBool(SettingAct.AUTORELOADINTER,this);
-//        autoreload=VARIABELS.getBool(SettingAct.AUTORELOADINTER,this);
-//        reload=getBool(RELOADE,this);
+        autoclose=VARIABELS.getBool(MenuSetting.AUTORELOADINTER,this);
+        autoreload=VARIABELS.getBool(MenuSetting.AUTORELOADINTER,this);
+        reload=getBool(RELOADE,this);
 
         tanggalan.setText("Estimates calculation in :\n"+InterstialMe.getString(DATE,this));
-//        if(VARIABELS.getBool(SettingAct.AUTORELOADINTER,this)){
-//            auto.setText("AUTO RELOAD ACTIVE");
-//        }else {
-//            auto.setText("AUTO RELOAD OFF");
-//            times.setText("");
-//        }
-//        if(VARIABELS.getBool(SettingAct.AUTORELOADINTER,this)){
-//            close.setText("AUTO CLOSE AD ACTIVE ");
-//        }else{
-//            close.setText("AUTO CLOSE AD OFF");
-//        }
-//        categori.setText("Keyword : "+VARIABELS.getString(SettingAct.CATEGORYAD,InataActivity.this,getString(R.string.app_name)));
+        if(VARIABELS.getBool(MenuSetting.AUTORELOADINTER,this)){
+            auto.setText("AUTO RELOAD ACTIVE");
+        }else {
+            auto.setText("AUTO RELOAD OFF");
+            times.setText("");
+        }
+        if(VARIABELS.getBool(MenuSetting.AUTORELOADINTER,this)){
+            close.setText("AUTO CLOSE AD ACTIVE ");
+        }else{
+            close.setText("AUTO CLOSE AD OFF");
+        }
+        categori.setText("Keyword : "+VARIABELS.getString(MenuSetting.CATEGORYAD,MenuInata.this,getString(R.string.app_name)));
         berhasil.setText("LOAD :"+berhasilt);
         gagal.setText("FAILED :"+gagalt);
         adopen.setText("CLICK :"+cik);
