@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings" translatable="false">Settings</string>
-    <string name="app_name" translatable="false">AdMob Interstitial Example</string>
+    <string name="app_name" translatable="false">MURACARE</string>
     <string name="hello_world" translatable="false">Hello world!</string>
     <string name="impossible_game" translatable="false">Impossible Game</string>
     <string name="more_menu" translatable="false">More</string>
@@ -9,6 +9,6 @@
 
 
     <string name="TestMobileAds">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="TestUnitBannerID">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="TestUnitBannerID">ca-app-pub-3940256099942544/9214589741</string>
     <string name="TestIntertitialID">ca-app-pub-3940256099942544/1033173712</string>
 </resources>
