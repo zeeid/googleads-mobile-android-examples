@@ -466,13 +466,13 @@ public class MenuBanana extends AppCompatActivity {
         saveInteger(IMPRESSION,0,this);
         saveInteger(OPENED,0,this);
 
-        cekRate();
-        adopen.setText("CLICK : 0");
-        gagal.setText("FAILED : 0");
-        impression.setText("IMPRES : 0");
-        berhasil.setText("LOAD : 0");
-        opened.setText("OPENED : 0");
-        rate.setText("CTR : 0%");
+//        cekRate();
+//        adopen.setText("CLICK : 0");
+//        gagal.setText("FAILED : 0");
+//        impression.setText("IMPRES : 0");
+//        berhasil.setText("LOAD : 0");
+//        opened.setText("OPENED : 0");
+//        rate.setText("CTR : 0%");
 
     }
 
