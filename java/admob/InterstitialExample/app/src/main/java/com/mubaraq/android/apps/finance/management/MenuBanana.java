@@ -1,4 +1,4 @@
-package com.google.android.gms.example.interstitialexample;
+package com.mubaraq.android.apps.finance.management;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -36,7 +36,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.google.android.gms.example.interstitialexample.data.VARIABELS;
+import com.mubaraq.android.apps.finance.management.data.VARIABELS;
 
 /** Main Activity. Inflates main activity xml and child fragments. */
 public class MenuBanana extends AppCompatActivity {

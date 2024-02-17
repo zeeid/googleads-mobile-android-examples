@@ -1,4 +1,4 @@
-package com.google.android.gms.example.interstitialexample;
+package com.mubaraq.android.apps.finance.management;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,18 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
+
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.google.android.gms.example.interstitialexample.data.FetchGeoIp;
+import com.mubaraq.android.apps.finance.management.data.FetchGeoIp;
 
 public class Home extends AppCompatActivity {
     public static TextView data;

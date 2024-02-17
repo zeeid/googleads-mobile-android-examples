@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.android.gms.example.interstitialexample;
+package com.mubaraq.android.apps.finance.management;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +31,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.mubaraq.android.apps.finance.management.data.InterstialMe;
+import com.mubaraq.android.apps.finance.management.data.VARIABELS;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -46,18 +49,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import com.google.android.gms.example.interstitialexample.data.InterstialMe;
-import com.google.android.gms.example.interstitialexample.data.VARIABELS;
-
-import static com.google.android.gms.example.interstitialexample.data.InterstialMe.BERHASIL;
-import static com.google.android.gms.example.interstitialexample.data.InterstialMe.DATE;
-import static com.google.android.gms.example.interstitialexample.data.InterstialMe.GAGAL;
-import static com.google.android.gms.example.interstitialexample.data.InterstialMe.OPEN;
-import static com.google.android.gms.example.interstitialexample.data.InterstialMe.RATE;
-import static com.google.android.gms.example.interstitialexample.data.InterstialMe.SHOW;
-import static com.google.android.gms.example.interstitialexample.data.InterstialMe.IMPRESSED;
-import static com.google.android.gms.example.interstitialexample.data.InterstialMe.saveString;
 
 @SuppressLint("SetTextI18n")
 public class MenuInata extends AppCompatActivity {
@@ -226,7 +217,7 @@ public class MenuInata extends AppCompatActivity {
 
             Toast.makeText(MenuInata.this, "onAdLoaded()", Toast.LENGTH_SHORT).show();
               berhasilt++;
-              InterstialMe.saveInteger(BERHASIL,berhasilt,MenuInata.this);
+              InterstialMe.saveInteger(InterstialMe.BERHASIL,berhasilt,MenuInata.this);
               dataC();
               logprogram.setText("Log : Berhasil Memuat iklan interstitial");
 
@@ -238,7 +229,7 @@ public class MenuInata extends AppCompatActivity {
                         // Called when a click is recorded for an ad.
                         logprogram.setText("Log : Ad was clicked.");
                         cik++;
-                        InterstialMe.saveInteger(OPEN,cik,MenuInata.this);
+                        InterstialMe.saveInteger(InterstialMe.OPEN,cik,MenuInata.this);
                         dataC();
                     }
 
@@ -266,7 +257,7 @@ public class MenuInata extends AppCompatActivity {
                         // Called when an impression is recorded for an ad.
                         logprogram.setText("Log : Ad recorded an impression.");
                         impressed++;
-                        InterstialMe.saveInteger(IMPRESSED,impressed,MenuInata.this);
+                        InterstialMe.saveInteger(InterstialMe.IMPRESSED,impressed,MenuInata.this);
                         dataC();
 
                         if(autoclose) {
@@ -279,7 +270,7 @@ public class MenuInata extends AppCompatActivity {
                     // Called when fullscreen content is shown.
                         logprogram.setText("Log : The ad was shown.");
                     show++;
-                    InterstialMe.saveInteger(SHOW,show,MenuInata.this);
+                    InterstialMe.saveInteger(InterstialMe.SHOW,show,MenuInata.this);
                     dataC();
                   }
                 });
@@ -294,7 +285,7 @@ public class MenuInata extends AppCompatActivity {
             adIsLoading = false;
 
               gagalt++;
-              InterstialMe.saveInteger(GAGAL,gagalt,MenuInata.this);
+              InterstialMe.saveInteger(InterstialMe.GAGAL,gagalt,MenuInata.this);
               dataC();
 
             String error =
@@ -501,19 +492,19 @@ public class MenuInata extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void data(){
-        gagalt= InterstialMe.getInteger(GAGAL,this);
-        berhasilt=InterstialMe.getInteger(BERHASIL,this);
-        cik=InterstialMe.getInteger(OPEN,this);
-        ratess=InterstialMe.getString(RATE,this);
-        show=InterstialMe.getInteger(SHOW,this);
-        impressed=InterstialMe.getInteger(IMPRESSED,this);
+        gagalt= InterstialMe.getInteger(InterstialMe.GAGAL,this);
+        berhasilt=InterstialMe.getInteger(InterstialMe.BERHASIL,this);
+        cik=InterstialMe.getInteger(InterstialMe.OPEN,this);
+        ratess=InterstialMe.getString(InterstialMe.RATE,this);
+        show=InterstialMe.getInteger(InterstialMe.SHOW,this);
+        impressed=InterstialMe.getInteger(InterstialMe.IMPRESSED,this);
 
 
         autoclose=VARIABELS.getBool(MenuSetting.AUTORELOADINTER,this);
         autoreload=VARIABELS.getBool(MenuSetting.AUTORELOADINTER,this);
         reload=getBool(RELOADE,this);
 
-        tanggalan.setText("Estimates calculation in :\n"+InterstialMe.getString(DATE,this));
+        tanggalan.setText("Estimates calculation in :\n"+InterstialMe.getString(InterstialMe.DATE,this));
         if(VARIABELS.getBool(MenuSetting.AUTORELOADINTER,this)){
             auto.setText("AUTO RELOAD ACTIVE");
         }else {
@@ -538,28 +529,28 @@ public class MenuInata extends AppCompatActivity {
         float total = ((float)cik/(float)show)*100;
         DecimalFormat df = new DecimalFormat("####.##");
         ratess = df.format(total);
-        saveString(RATE,ratess,this);
+        InterstialMe.saveString(InterstialMe.RATE,ratess,this);
         CekDateUP();
         data();
     }
     public void CekDateUP(){
         @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy");
         String date = df.format(Calendar.getInstance().getTime());
-        if(!date.equals(InterstialMe.getString(DATE,this))){
-            saveString(DATE,date,this);
+        if(!date.equals(InterstialMe.getString(InterstialMe.DATE,this))){
+            InterstialMe.saveString(InterstialMe.DATE,date,this);
             resetResult();
 
         }else{
-            saveString(DATE,date,this);
+            InterstialMe.saveString(InterstialMe.DATE,date,this);
         }
     }
     public void resetResult(){
-        InterstialMe.saveInteger(SHOW,0,MenuInata.this);
-        InterstialMe.saveInteger(GAGAL,0,MenuInata.this);
-        InterstialMe.saveInteger(BERHASIL,0,MenuInata.this);
-        InterstialMe.saveInteger(OPEN,0,MenuInata.this);
-        InterstialMe.saveInteger(IMPRESSED,0,MenuInata.this);
-        saveString(RATE,"0",this);
+        InterstialMe.saveInteger(InterstialMe.SHOW,0,MenuInata.this);
+        InterstialMe.saveInteger(InterstialMe.GAGAL,0,MenuInata.this);
+        InterstialMe.saveInteger(InterstialMe.BERHASIL,0,MenuInata.this);
+        InterstialMe.saveInteger(InterstialMe.OPEN,0,MenuInata.this);
+        InterstialMe.saveInteger(InterstialMe.IMPRESSED,0,MenuInata.this);
+        InterstialMe.saveString(InterstialMe.RATE,"0",this);
         data();
         CekDateUP();
     }

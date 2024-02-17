@@ -1,4 +1,4 @@
-package com.google.android.gms.example.interstitialexample;
+package com.mubaraq.android.apps.finance.management;
 
 
 import android.annotation.SuppressLint;
@@ -17,7 +17,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.example.interstitialexample.data.VARIABELS;
+import com.mubaraq.android.apps.finance.management.data.VARIABELS;
 
 public class MenuSetting extends AppCompatActivity {
 

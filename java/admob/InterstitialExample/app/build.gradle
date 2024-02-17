@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'com.google.android.gms.example.interstitialexample'
+    namespace 'com.mubaraq.android.apps.finance.management'
     compileSdkVersion 34
     defaultConfig {
-        applicationId "com.google.android.gms.example.interstitialexample"
+        applicationId "com.mubaraq.android.apps.finance.management"
         minSdkVersion 19
         multiDexEnabled true
         targetSdkVersion 34
