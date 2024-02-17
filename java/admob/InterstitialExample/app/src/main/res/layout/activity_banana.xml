@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="\n"
+            android:text="tanggal"
             android:textStyle="bold" />
 
         <TextView
@@ -81,8 +81,25 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="\n"
+            android:text="Rate"
             android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/satata2"
+        android:id="@+id/formlog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/logbanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Log "
+            android:textStyle="bold" />
+
 
     </LinearLayout>
 
@@ -131,7 +148,7 @@
                 android:id="@+id/autoReloads"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="Status AutoReloads"
                 android:textStyle="bold" />
 
             <TextView
@@ -139,21 +156,21 @@
                 android:id="@+id/timereload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="timereload" />
 
             <TextView
                 android:id="@+id/jumlahbanner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/timereload"
-                android:text="TextView"
+                android:text="jumlahbanner"
                 android:textStyle="italic" />
             <TextView
                 android:layout_below="@id/jumlahbanner"
                 android:id="@+id/categoryban"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="categoryban" />
 
             <TextView
                 android:id="@+id/sizebanner"
@@ -170,7 +187,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/satata2"
+        android:layout_below="@+id/formlog"
         android:layout_above="@+id/wawa">
         <LinearLayout
             android:layout_width="match_parent"

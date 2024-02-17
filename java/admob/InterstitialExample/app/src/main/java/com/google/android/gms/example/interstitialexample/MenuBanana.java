@@ -55,7 +55,7 @@ public class MenuBanana extends AppCompatActivity {
 
     private int sizebans;
     private int banyak;
-    TextView berhasil,gagal,auto,jumato,jumbanner,categori,size,tanggalan,adopen,rate,impression,opened;
+    TextView berhasil,gagal,auto,jumato,jumbanner,categori,size,tanggalan,adopen,rate,impression,opened,logbanner;
 
     private static final String DATE="yyasd",GG="gsdag",BB="beqrewb",CIK="casdfsc",CT="crewt",IMP="imasfdpr",
             IMPRESSION="impression",
@@ -306,12 +306,14 @@ public class MenuBanana extends AppCompatActivity {
                 saveInteger(CIK,cik,MenuBanana.this);
                 adopen.setText("CLICK :"+cik);
                 cekRate();
+                logbanner.setText("ADS KLIKED");
             }
 
             @Override
             public void onAdClosed() {
                 // Code to be executed when the user is about to return
                 // to the app after tapping on an ad.
+                logbanner.setText("ADS CLOSED");
             }
 
             @Override
@@ -320,6 +322,10 @@ public class MenuBanana extends AppCompatActivity {
                 gagalt++;
                 saveInteger(GG,gagalt,MenuBanana.this);
                 gagal.setText("FAILED :"+gagalt);
+
+                String errorMessage = "Failed to load ad: " + adError.getMessage();
+                
+                logbanner.setText(errorMessage);
             }
 
             @Override
@@ -332,6 +338,8 @@ public class MenuBanana extends AppCompatActivity {
                 impressiont++;
                 saveInteger(IMPRESSION,impressiont,MenuBanana.this);
                 impression.setText("IMPRES :"+impressiont);
+
+                logbanner.setText("ADS IMPRESED");
             }
 
             @Override
@@ -341,6 +349,8 @@ public class MenuBanana extends AppCompatActivity {
                 saveInteger(BB,berhasilt,MenuBanana.this);
                 berhasil.setText("LOAD :"+berhasilt);
                 cekRate();
+
+                logbanner.setText("ADS LOADED");
             }
 
             @Override
@@ -351,6 +361,8 @@ public class MenuBanana extends AppCompatActivity {
                 saveInteger(OPENED,openedt,MenuBanana.this);
                 opened.setText("OPENED :"+openedt);
                 cekRate();
+
+                logbanner.setText("ADS OPENED");
             }
         };
 
@@ -489,6 +501,7 @@ public class MenuBanana extends AppCompatActivity {
         size=findViewById(R.id.sizebanner);
         rate=findViewById(R.id.rateSBan);
         tanggalan=findViewById(R.id.tanggal);
+        logbanner = findViewById(R.id.logbanner);
     }
 
     public void CekDateUP(){
