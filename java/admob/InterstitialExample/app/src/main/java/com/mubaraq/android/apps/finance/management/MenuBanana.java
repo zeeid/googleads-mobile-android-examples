@@ -81,8 +81,30 @@ public class MenuBanana extends AppCompatActivity {
         indoprot        = VARIABELS.getBool(MenuSetting.INDOPROT,this);
         keepgoing       = VARIABELS.getBool(MenuSetting.KEEPGOING,this);
 
-        maxsuccess      = VARIABELS.getInteger(MenuSetting.MAXLOAD,this,1);
-        maxfail         = VARIABELS.getInteger(MenuSetting.MINLOAD,this,1);
+        maxsuccess  = VARIABELS.getInteger(MenuSetting.MAXLOAD,this,10);
+        maxfail     = VARIABELS.getInteger(MenuSetting.MINLOAD,this,10);
+
+        if (gagalt > maxfail || berhasilt > maxsuccess) {
+            String message;
+            if (gagalt > maxfail) {
+                message = "Maksimal Fail tercukupi : " + gagalt + "/" + maxfail;
+            } else {
+                message = "Maksimal Load tercukupi : " + berhasilt + "/" + maxsuccess;
+            }
+
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
+            if (isTaskRoot()) {
+                // Jika aktivitas ini adalah aktivitas teratas (tidak ada aktivitas lain dalam tumpukan)
+                // tambahkan logika untuk membuka menu Home activity atau lakukan tindakan yang sesuai.
+                // Misalnya:
+                Intent intent = new Intent(this, Home.class);
+                startActivity(intent);
+            }
+
+            finish(); // Selesai dengan aktivitas ini
+            return;
+        }
 
         CekDateUP();
         viewBinds();
