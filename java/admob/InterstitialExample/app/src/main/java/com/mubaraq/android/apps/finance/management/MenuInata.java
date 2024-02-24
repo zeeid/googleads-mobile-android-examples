@@ -54,7 +54,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MenuInata extends AppCompatActivity {
 
     private static final long GAME_LENGTH_MILLISECONDS = 9000;
-    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
+    private static final String AD_UNIT_ID = "ca-app-pub-1550263870592342/7321612279";
     private static final String TAG = "MenuInata";
 
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);

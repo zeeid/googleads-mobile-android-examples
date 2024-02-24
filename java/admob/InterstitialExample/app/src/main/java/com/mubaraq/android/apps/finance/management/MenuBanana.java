@@ -42,8 +42,8 @@ import com.mubaraq.android.apps.finance.management.data.VARIABELS;
 public class MenuBanana extends AppCompatActivity {
 
     // These are ad unit IDs for test ads. Replace with your own banner ad unit IDs.
-    private static final String AD_UNIT_ID_1 = "ca-app-pub-3940256099942544/9214589741";
-    private static final String AD_UNIT_ID_2 = "ca-app-pub-3940256099942544/9214589741";
+    private static final String AD_UNIT_ID_1 = "ca-app-pub-1550263870592342/7600813874";
+    private static final String AD_UNIT_ID_2 = "ca-app-pub-1550263870592342/5497394717";
     private static final String TAG = "Menu Banana";
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
     private GoogleMobileAdsConsentManager googleMobileAdsConsentManager;
@@ -155,8 +155,8 @@ public class MenuBanana extends AppCompatActivity {
         // get test ads on a physical device. e.g.
         // "Use RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("ABCDEF012345"))
         // to get test ads on this device."
-        MobileAds.setRequestConfiguration(
-                new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("ABCDEF012345")).build());
+//        MobileAds.setRequestConfiguration(
+//                new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("ABCDEF012345")).build());
     }
 
     @Override
