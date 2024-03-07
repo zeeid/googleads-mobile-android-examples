@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings" translatable="false">Settings</string>
-    <string name="app_name" translatable="false">MURACARE</string>
+    <string name="app_name" translatable="false">ZEICARE</string>
     <string name="hello_world" translatable="false">Hello world!</string>
     <string name="impossible_game" translatable="false">Impossible Game</string>
     <string name="more_menu" translatable="false">More</string>

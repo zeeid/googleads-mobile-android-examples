@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'com.mubaraq.android.apps.finance.management'
+    namespace 'com.zeeidev.android.apps.finance.management'
     compileSdkVersion 34
     defaultConfig {
-        applicationId "com.mubaraq.android.apps.finance.management"
+        applicationId "com.zeeidev.android.apps.finance.management"
         minSdkVersion 19
         multiDexEnabled true
         targetSdkVersion 34
-        versionCode 3
-        versionName "3.0"
+        versionCode 4
+        versionName "4.0"
     }
     buildTypes {
         release {
