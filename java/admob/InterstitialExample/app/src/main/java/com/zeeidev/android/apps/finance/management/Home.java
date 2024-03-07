@@ -100,6 +100,15 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        Button buttonRewad = findViewById(R.id.buttonreward);
+        buttonRewad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, MenuReward.class);
+                startActivity(intent);
+            }
+        });
+
         Button buttonBanana = findViewById(R.id.buttonBanana);
         buttonBanana.setOnClickListener(new View.OnClickListener() {
             @Override

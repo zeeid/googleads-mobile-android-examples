@@ -32,6 +32,8 @@
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".MenuBanana"
                   android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MenuReward"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".MenuSetting"
                   android:theme="@style/AppTheme.NoActionBar"/>
     </application>
