@@ -70,13 +70,12 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/hiddeninput"
+                        android:id="@+id/jmlRequest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="TextView"
-                        android:textStyle="bold"
-                        android:visibility="invisible" />
+                        android:text="Request: 0"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/failtotint"

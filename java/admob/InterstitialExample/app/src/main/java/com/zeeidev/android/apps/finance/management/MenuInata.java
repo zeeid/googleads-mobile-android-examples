@@ -72,10 +72,10 @@ public class MenuInata extends AppCompatActivity {
     public boolean reload=false,autoclose,autoreload,IsIndo;
     public boolean rotation,vpnprot,indoprot,keepgoing,mixbanerinter,usetestunit;
     public int maxsuccess = 1, maxfail = 1;
-    public int gagalt=0,berhasilt=0,cik=0,show=0,impressed = 0;
+    public int gagalt=0,berhasilt=0,cik=0,show=0,impressed = 0,requestot=0;
     public String ratess,AdsUnitID;
     Button sett;
-    TextView berhasil,gagal,auto,categori,close,tanggalan,adopen,rate,showon,times,impreson,logprogram;
+    TextView jmlrequest,berhasil,gagal,auto,categori,close,tanggalan,adopen,rate,showon,times,impreson,logprogram;
 
     @Override
     public void onBackPressed() {
@@ -197,6 +197,9 @@ public class MenuInata extends AppCompatActivity {
     }
 
     private void loadAd() {
+        requestot++;
+        InterstialMe.saveInteger(InterstialMe.JMLREQUEST,requestot,MenuInata.this);
+        dataC();
         logprogram.setText("Log : Memuat iklan interstitial");
     if (adIsLoading || interstitialAd != null) {
       return;
@@ -476,6 +479,7 @@ public class MenuInata extends AppCompatActivity {
 
     public void viewBinds(){
         berhasil=findViewById(R.id.succsestotint);
+        jmlrequest=findViewById(R.id.jmlRequest);
         gagal=findViewById(R.id.failtotint);
         adopen=findViewById(R.id.adopenBanint);
         tanggalan=findViewById(R.id.tanggalint);
@@ -498,6 +502,7 @@ public class MenuInata extends AppCompatActivity {
         ratess=InterstialMe.getString(InterstialMe.RATE,this);
         show=InterstialMe.getInteger(InterstialMe.SHOW,this);
         impressed=InterstialMe.getInteger(InterstialMe.IMPRESSED,this);
+        requestot=InterstialMe.getInteger(InterstialMe.JMLREQUEST,this);
 
 
         autoclose=VARIABELS.getBool(MenuSetting.AUTORELOADINTER,this);
@@ -518,6 +523,7 @@ public class MenuInata extends AppCompatActivity {
         }
         categori.setText("Keyword : "+VARIABELS.getString(MenuSetting.CATEGORYAD,MenuInata.this,getString(R.string.app_name)));
         berhasil.setText("LOAD :"+berhasilt);
+        jmlrequest.setText("Request:"+requestot);
         gagal.setText("FAILED :"+gagalt);
         adopen.setText("CLICK :"+cik);
         rate.setText("CTR :"+ratess+"%");
@@ -551,6 +557,7 @@ public class MenuInata extends AppCompatActivity {
         InterstialMe.saveInteger(InterstialMe.OPEN,0,MenuInata.this);
         InterstialMe.saveInteger(InterstialMe.IMPRESSED,0,MenuInata.this);
         InterstialMe.saveString(InterstialMe.RATE,"0",this);
+        InterstialMe.saveInteger(InterstialMe.JMLREQUEST,0,MenuInata.this);
         data();
         CekDateUP();
     }

@@ -18,6 +18,7 @@ public class InterstialMe {
             DURATIONCLOSE="close",
             DATE="date",
             GAGAL="gagal",
+            JMLREQUEST="jmlrequest",
             BERHASIL="berhasil",
             OPEN="open",
             RATE="rate",
