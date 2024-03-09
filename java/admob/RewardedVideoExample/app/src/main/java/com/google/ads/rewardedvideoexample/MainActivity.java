@@ -307,7 +307,10 @@ public class MainActivity extends AppCompatActivity {
           public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
             // Handle the reward.
             Log.d("TAG", "The user earned the reward.");
-            addCoins(coinCount);
+              int rewardAmount = rewardItem.getAmount();
+              String rewardType = rewardItem.getType();
+
+              addCoins(rewardAmount);
           }
         });
   }
