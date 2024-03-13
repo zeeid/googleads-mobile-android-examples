@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
@@ -30,17 +31,50 @@ import java.net.URL;
 import java.util.TimeZone;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.zeeidev.android.apps.finance.managements.data.FetchGeoIp;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Home extends AppCompatActivity {
+    @SuppressLint("StaticFieldLeak")
     public static TextView data;
     private static final String TAG = "Home Activity";
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
     private GoogleMobileAdsConsentManager googleMobileAdsConsentManager;
 
+    private class GetAdvertisingIdTask extends AsyncTask<Void, Void, String> {
+
+        private Context context;
+
+        public GetAdvertisingIdTask(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            AdvertisingIdClient.Info adInfo = null;
+            try {
+                adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
+            } catch (GooglePlayServicesNotAvailableException | GooglePlayServicesRepairableException | IOException e) {
+                // Error handling omitted.
+            }
+            return adInfo == null ? null : adInfo.getId();
+        }
+
+        @SuppressLint("SetTextI18n")
+        @Override
+        protected void onPostExecute(String advertisingId) {
+            super.onPostExecute(advertisingId);
+
+            // Gunakan advertisingId untuk pelacakan.
+            Log.d("Home", "Advertising ID: " + advertisingId);
+            TextView AdvertisingId= findViewById(R.id.AdvertisingId);
+            AdvertisingId.setText("Advertising ID: "+advertisingId);
+        }
+    }
 
     private static void setSystemTimeZoneByIP(final Context context) {
         AsyncTask.execute(new Runnable() {
@@ -153,6 +187,10 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        new GetAdvertisingIdTask(this).execute();
+
+
 
         Log.d(TAG, "Google Mobile Ads SDK Version: " + MobileAds.getVersion());
         MobileAds.initialize(this, new OnInitializationCompleteListener() {

@@ -14,13 +14,21 @@
         android:text="Package Name Disini"
         android:textStyle="bold|italic"
         tools:ignore="HardcodedText" />
+    <TextView
+        android:id="@+id/AdvertisingId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AdvertisingId Disini"
+        android:textStyle="bold|italic"
+        android:layout_below="@+id/textView"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/buttonBanana"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/AdvertisingId"
 
         android:text="BANANA"
         tools:ignore="HardcodedText" />
