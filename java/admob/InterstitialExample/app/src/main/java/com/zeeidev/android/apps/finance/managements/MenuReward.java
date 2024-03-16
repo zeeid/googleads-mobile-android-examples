@@ -448,10 +448,10 @@ public class MenuReward extends AppCompatActivity {
                         Log.d(TAG, "onAdDismissedFullScreenContent");
                         Toast.makeText(MenuReward.this, "onAdDismissedFullScreenContent", Toast.LENGTH_SHORT)
                                 .show();
-                        if (googleMobileAdsConsentManager.canRequestAds()) {
-                            // Preload the next rewarded ad.
-                            MenuReward.this.loadRewardedAd();
-                        }
+//                        if (googleMobileAdsConsentManager.canRequestAds()) {
+//                            // Preload the next rewarded ad.
+//                            MenuReward.this.loadRewardedAd();
+//                        }
                     }
                 });
         Activity activityContext = MenuReward.this;
