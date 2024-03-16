@@ -221,6 +221,11 @@ public class MenuBanana extends AppCompatActivity {
             adView2.pause();
         }
         super.onPause();
+
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
     }
 
     /** Called when returning to the activity */
