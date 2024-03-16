@@ -200,6 +200,23 @@ public class MenuReward extends AppCompatActivity {
         coinCountText = findViewById(R.id.coin_count_text);
         coinCount = 0;
         coinCountText.setText("Coins: " + coinCount);
+
+        Button buttonreset = findViewById(R.id.reset);
+        buttonreset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetResult();
+            }
+        });
+
+        Button buttonsetting = findViewById(R.id.set_interes);
+        buttonsetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuReward.this, MenuSetting.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
