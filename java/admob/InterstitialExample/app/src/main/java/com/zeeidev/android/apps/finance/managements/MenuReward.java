@@ -43,7 +43,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /** Main Activity. Inflates main activity xml. */
 @SuppressLint("SetTextI18n")
 public class MenuReward extends AppCompatActivity {
-    private static final String AD_UNIT_ID = "ca-app-pub-7944170612384609/5624255326";
+    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
     private static final long COUNTER_TIME = 10;
     private static final int GAME_OVER_REWARD = 1;
     private static final String TAG = "MenuReward";
@@ -306,7 +306,9 @@ public class MenuReward extends AppCompatActivity {
                             Log.d(TAG, loadAdError.getMessage());
                             rewardedAd = null;
                             MenuReward.this.isLoading = false;
-                            Toast.makeText(MenuReward.this, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(MenuReward.this, "onAdFailedToLoad", Toast.LENGTH_SHORT).show();
+
+
 
                             String error =
                                     String.format(
@@ -320,6 +322,16 @@ public class MenuReward extends AppCompatActivity {
                             InterstialMe.saveInteger(InterstialMe.GAGAL,gagalt,MenuReward.this);
                             dataC();
                             logprogram.setText("Log : Error "+error);
+
+                            if (keepgoing){
+                                if(autoclose) {
+                                    countDownTimeAR();
+                                }
+                            }else{
+                                Log.e("LOG SETTING","keepgoing "+keepgoing);
+                                countDownTimer.cancel();
+                                Toast.makeText(MenuReward.this, "onAdFailedToLoad | Reload Jika Fail: "+keepgoing, Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
@@ -371,15 +383,16 @@ public class MenuReward extends AppCompatActivity {
                     public void onFinish() {
                         if (rewardedAd != null) {
                             showVideoButton.setVisibility(View.VISIBLE);
+
+                            if(autoclose) {
+                                showVideoButton.performClick();
+                            }
                         }
                         textView.setText("You Lose!");
                         addCoins(GAME_OVER_REWARD);
                         retryButton.setVisibility(View.VISIBLE);
                         gameOver = true;
 
-                        if(autoclose) {
-                            showVideoButton.performClick();
-                        }
                     }
                 };
         countDownTimer.start();

@@ -54,7 +54,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MenuInata extends AppCompatActivity {
 
     private static final long GAME_LENGTH_MILLISECONDS = 9000;
-    private static final String AD_UNIT_ID = "ca-app-pub-7944170612384609/1441467731";
+    // TEST ADS    ca-app-pub-3940256099942544/1033173712
+    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
     private static final String TAG = "MenuInata";
 
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
@@ -301,11 +302,13 @@ public class MenuInata extends AppCompatActivity {
             Toast.makeText(MenuInata.this, "onAdFailedToLoad() with error: " + error, Toast.LENGTH_SHORT).show();
 
               logprogram.setText("Log : Error "+error);
-
               if (keepgoing){
                   if(autoclose) {
                       countDownTimeAR();
                   }
+              }else{
+                  countDownTimer.cancel();
+                  Toast.makeText(MenuInata.this, "Reload Jika Fail: "+keepgoing, Toast.LENGTH_SHORT).show();
               }
           }
         });

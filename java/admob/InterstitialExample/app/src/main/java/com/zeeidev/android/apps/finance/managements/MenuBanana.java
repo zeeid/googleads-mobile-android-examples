@@ -25,12 +25,14 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -40,8 +42,8 @@ import com.zeeidev.android.apps.finance.managements.data.VARIABELS;
 public class MenuBanana extends AppCompatActivity {
 
     // These are ad unit IDs for test ads. Replace with your own banner ad unit IDs.
-    private static final String AD_UNIT_ID_1 = "ca-app-pub-7944170612384609/8884843483";
-    private static final String AD_UNIT_ID_2 = "ca-app-pub-7944170612384609/4067631071";
+    private static final String AD_UNIT_ID_1 = "ca-app-pub-3940256099942544/9214589741";
+    private static final String AD_UNIT_ID_2 = "ca-app-pub-3940256099942544/9214589741";
     private static final String TAG = "Menu Banana";
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
     private GoogleMobileAdsConsentManager googleMobileAdsConsentManager;
@@ -62,7 +64,8 @@ public class MenuBanana extends AppCompatActivity {
     public int gagalt=0,berhasilt=0,impre=0,cik=0,openedt=0,impressiont=0;
     public String ratess,AdsUnitID;
 
-    public boolean sedang=false,asd,IsIndo;
+    public boolean sedang=false,asd,reload=false,autoclose,autoreload,IsIndo;
+    public final String RELOADE="reload";
     public boolean rotation,vpnprot,indoprot,keepgoing,mixbanerinter,usetestunit;
     public int maxsuccess = 1, maxfail = 1;
     private CountDownTimer countDownTimer;
@@ -175,8 +178,8 @@ public class MenuBanana extends AppCompatActivity {
         // get test ads on a physical device. e.g.
         // "Use RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("ABCDEF012345"))
         // to get test ads on this device."
-//        MobileAds.setRequestConfiguration(
-//                new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("ABCDEF012345")).build());
+        MobileAds.setRequestConfiguration(
+                new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("ABCDEF012345")).build());
     }
 
     @Override
@@ -351,6 +354,15 @@ public class MenuBanana extends AppCompatActivity {
                 String errorMessage = "Failed to load ad: " + adError.getMessage();
                 
                 logbanner.setText(errorMessage);
+
+                if (keepgoing){
+                    if(autoclose) {
+                        AutoReload();
+                    }
+                }else{
+                    countDownTimer.cancel();
+                    Toast.makeText(MenuBanana.this, "Reload Jika Fail: "+keepgoing, Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
