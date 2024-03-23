@@ -44,11 +44,21 @@
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/buttonreward"
+        android:id="@+id/buttoninatareward"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/buttoninata"
+
+        android:text="INATA Reward"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/buttonreward"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttoninatareward"
 
         android:text="Reward"
         tools:ignore="HardcodedText" />
