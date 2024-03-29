@@ -10,9 +10,15 @@
     <string name="Add" translatable="false">Cba</string>
 
 
-    <string name="TestMobileAds">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="TestUnitBannerID">ca-app-pub-3940256099942544/9214589741</string>
-    <string name="TestIntertitialID">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="AppOpen">ca-app-pub-3940256099942544/9257395921</string>
+    <string name="AdaptiveBanner">ca-app-pub-3940256099942544/9214589741</string>
+    <string name="FixedSizeBanner">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="Interstitial">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="InterstitialVideo">ca-app-pub-3940256099942544/8691691433</string>
+    <string name="Rewarded">ca-app-pub-3940256099942544/5224354917</string>
+    <string name="RewardedInterstitial">ca-app-pub-3940256099942544/5354046379</string>
+    <string name="NativeAdvanced">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="NativeAdvancedVideo">ca-app-pub-3940256099942544/1044960115</string>
 
 
     <string name="default_coin_text" translatable="false">Coins: 0</string>
