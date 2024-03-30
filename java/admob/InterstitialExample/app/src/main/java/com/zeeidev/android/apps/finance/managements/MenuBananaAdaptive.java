@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MenuBananaAdaptive extends AppCompatActivity {
 
     // This is an ad unit ID for a test ad. Replace with your own banner ad unit ID.
-    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741";
+//    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741";
     private static final String TAG = "MyActivity";
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
     private GoogleMobileAdsConsentManager googleMobileAdsConsentManager;
@@ -271,10 +271,23 @@ public class MenuBananaAdaptive extends AppCompatActivity {
         super.onDestroy();
     }
 
+    public String GetUnitID() {
+
+        String randomName;
+
+//        if (usetestunit){
+            randomName = getString(R.string.AdaptiveBanner);
+//        }else{
+//            randomName = VARIABELS.getString(MenuSetting.INTERSTITIALID,this,getString(R.string.TestIntertitialID));
+//        }
+
+        return randomName;
+    }
+
     private void loadBanner() {
         // Create a new ad view.
         adView = new AdView(this);
-        adView.setAdUnitId(AD_UNIT_ID);
+        adView.setAdUnitId(GetUnitID());
         adView.setAdSize(getAdSize());
 
         adView.setAdListener(new AdListener() {
