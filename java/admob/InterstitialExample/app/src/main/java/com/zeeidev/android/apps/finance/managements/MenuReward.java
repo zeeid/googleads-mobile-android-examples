@@ -236,11 +236,6 @@ public class MenuReward extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         pauseGame();
-
-        if (countDownTimerAR != null) {
-            countDownTimerAR.cancel();
-            countDownTimerAR = null;
-        }
     }
 
     @Override

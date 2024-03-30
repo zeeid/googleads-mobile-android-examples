@@ -15,9 +15,12 @@
  */
 package com.zeeidev.android.apps.finance.managements;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
@@ -367,11 +370,6 @@ public class MenuInata extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         pauseGame();
-
-        if (countDownTimerAR != null) {
-            countDownTimerAR.cancel();
-            countDownTimerAR = null;
-        }
     }
 
     @Override
