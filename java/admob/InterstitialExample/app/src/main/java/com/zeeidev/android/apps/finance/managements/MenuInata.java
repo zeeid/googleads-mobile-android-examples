@@ -55,7 +55,7 @@ public class MenuInata extends AppCompatActivity {
 
     private static final long GAME_LENGTH_MILLISECONDS = 9000;
     // TEST ADS    ca-app-pub-3940256099942544/1033173712
-    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
+//    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
     private static final String TAG = "MenuInata";
 
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
@@ -96,6 +96,19 @@ public class MenuInata extends AppCompatActivity {
         } else {
             super.onBackPressed(); // Panggil perilaku default jika tidak ada dalam tumpukan teratas
         }
+    }
+
+    public String GetUnitID() {
+
+        String randomName;
+
+//        if (usetestunit){
+        randomName = getString(R.string.Interstitial);
+//        }else{
+//            randomName = VARIABELS.getString(MenuSetting.INTERSTITIALID,this,getString(R.string.TestIntertitialID));
+//        }
+
+        return randomName;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,7 +222,7 @@ public class MenuInata extends AppCompatActivity {
     AdRequest adRequest = new AdRequest.Builder().build();
     InterstitialAd.load(
         this,
-        AD_UNIT_ID,
+        GetUnitID(),
         adRequest,
         new InterstitialAdLoadCallback() {
           @Override

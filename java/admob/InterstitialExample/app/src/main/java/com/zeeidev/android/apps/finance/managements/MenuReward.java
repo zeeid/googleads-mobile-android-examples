@@ -43,7 +43,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /** Main Activity. Inflates main activity xml. */
 @SuppressLint("SetTextI18n")
 public class MenuReward extends AppCompatActivity {
-    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
+//    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5224354917";
     private static final long COUNTER_TIME = 10;
     private static final int GAME_OVER_REWARD = 1;
     private static final String TAG = "MenuReward";
@@ -90,6 +90,19 @@ public class MenuReward extends AppCompatActivity {
         } else {
             super.onBackPressed(); // Panggil perilaku default jika tidak ada dalam tumpukan teratas
         }
+    }
+
+    public String GetUnitID() {
+
+        String randomName;
+
+//        if (usetestunit){
+        randomName = getString(R.string.Rewarded);
+//        }else{
+//            randomName = VARIABELS.getString(MenuSetting.INTERSTITIALID,this,getString(R.string.TestIntertitialID));
+//        }
+
+        return randomName;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -297,7 +310,7 @@ public class MenuReward extends AppCompatActivity {
             AdRequest adRequest = new AdRequest.Builder().build();
             RewardedAd.load(
                     this,
-                    AD_UNIT_ID,
+                    GetUnitID(),
                     adRequest,
                     new RewardedAdLoadCallback() {
                         @Override

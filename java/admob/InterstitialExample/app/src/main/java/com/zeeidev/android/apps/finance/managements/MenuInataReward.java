@@ -45,7 +45,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /** Main Activity. Inflates main activity xml. */
 @SuppressLint("SetTextI18n")
 public class MenuInataReward extends AppCompatActivity {
-  private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5354046379";
+//  private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/5354046379";
   private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
   private static final long COUNTER_TIME = 10;
   private static final int GAME_OVER_REWARD = 1;
@@ -92,6 +92,18 @@ public class MenuInataReward extends AppCompatActivity {
         }
     }
 
+    public String GetUnitID() {
+
+        String randomName;
+
+//        if (usetestunit){
+        randomName = getString(R.string.RewardedInterstitial);
+//        }else{
+//            randomName = VARIABELS.getString(MenuSetting.INTERSTITIALID,this,getString(R.string.TestIntertitialID));
+//        }
+
+        return randomName;
+    }
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -290,7 +302,7 @@ public class MenuInataReward extends AppCompatActivity {
       // Use the test ad unit ID to load an ad.
       RewardedInterstitialAd.load(
           MenuInataReward.this,
-          AD_UNIT_ID,
+          GetUnitID(),
           adRequest,
           new RewardedInterstitialAdLoadCallback() {
             @Override
