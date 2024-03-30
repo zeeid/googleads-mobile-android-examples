@@ -31,23 +31,27 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.zeeidev.android.apps.finance.managements.MenuInata"
+        <activity android:name=".MenuInata"
                   android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name="com.zeeidev.android.apps.finance.managements.MenuBanana"
+        <activity android:name=".MenuBanana"
                   android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".MenuBananaAdaptive"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+
         <activity
-            android:name="com.zeeidev.android.apps.finance.managements.MenuInataReward"
+            android:name=".MenuInataReward"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity
-            android:name="com.zeeidev.android.apps.finance.managements.MenuReward"
+            android:name=".MenuReward"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name="com.zeeidev.android.apps.finance.managements.MenuSetting"
+        <activity android:name=".MenuSetting"
                   android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

@@ -9,6 +9,9 @@
 
     <string name="Add" translatable="false">Cba</string>
 
+    <string name="TestMobileAds">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="TestUnitBannerID">ca-app-pub-3940256099942544/9214589741</string>
+    <string name="TestIntertitialID">ca-app-pub-3940256099942544/1033173712</string>
 
     <string name="AppOpen">ca-app-pub-3940256099942544/9257395921</string>
     <string name="AdaptiveBanner">ca-app-pub-3940256099942544/9214589741</string>

@@ -266,7 +266,7 @@ public class Home extends AppCompatActivity {
         buttonBanana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Home.this, MenuBanana.class);
+                Intent intent = new Intent(Home.this, MenuBananaAdaptive.class);
                 startActivity(intent);
             }
         });
