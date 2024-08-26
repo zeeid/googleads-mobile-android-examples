@@ -1,0 +1,68 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.properties
+!**/src/main/res/
+!**/src/main/AndroidManifest.xml
+!**/src/debug/AndroidManifest.xml
+!**/src/profile/AndroidManifest.xml
+!**/src/test/AndroidManifest.xml
+!**/src/test/resources/
+!**/src/androidTest/AndroidManifest.xml
+!**/src/androidTest/resources/
+
+# Android Studio
+.idea/
+*.iml
+*.hprof
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log Files
+*.log
+
+# Android specific
+*.apk
+*.ap_
+*.dex
+*.class
+*.jar
+*.war
+
+# Keystore files
+*.jks
+*.keystore
+
+# Caches
+*.dmg
+*.swp
+*.swo
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Gradle wrapper
+gradle-wrapper.jar
+gradle-wrapper.properties
+
+# NDK
+*.obj
+*.o
+*.so
+
+# IntelliJ
+*.iml
+*.iws
+.idea/
+
+# Other
+*.log
+*.pyc
+*.pyo
+*.pyd
+*.class
+
+# Exclude AdMob test files
+admob_test/
