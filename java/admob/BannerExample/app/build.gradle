@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'com.google.android.gms.example.bannerexample'
+    namespace 'com.mubaraq.managementsistem'
     compileSdkVersion 34
     defaultConfig {
-        applicationId "com.google.android.gms.example.bannerexample"
+        applicationId "com.mubaraq.managementsistem"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode 1
