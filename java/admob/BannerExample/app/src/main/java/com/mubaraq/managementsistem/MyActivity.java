@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.gms.example.bannerexample;
+package com.mubaraq.managementsistem;
 
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
@@ -34,6 +34,8 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
+import com.google.android.gms.example.bannerexample.R;
+
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 

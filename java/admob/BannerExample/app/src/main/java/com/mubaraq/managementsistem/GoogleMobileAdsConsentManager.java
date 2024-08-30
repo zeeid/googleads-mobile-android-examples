@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.gms.example.bannerexample;
+package com.mubaraq.managementsistem;
 
 import android.app.Activity;
 import android.content.Context;
