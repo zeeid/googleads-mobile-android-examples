@@ -1,4 +1,6 @@
 package com.mubaraq.managementsistem;
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,12 @@ public class LoginActivity extends AppCompatActivity {
     private void login(String email, String password) {
         RequestQueue queue = Volley.newRequestQueue(this);
 
+        // Initialize the progress dialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Processing login...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
         // Create the JSON request body
         JSONObject requestBody = new JSONObject();
         try {
@@ -66,9 +76,15 @@ public class LoginActivity extends AppCompatActivity {
                 LOGIN_URL,
                 requestBody,
                 new Response.Listener<JSONObject>() {
+                    @SuppressLint("LongLogTag")
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            // Hide the progress dialog
+                            if (progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+
                             String name = response.getString("name");
                             String userEmail = response.getString("email");
                             int jmlBaner = response.getInt("jml_baner");
@@ -154,6 +170,10 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        // Hide the progress dialog
+                        if (progressDialog.isShowing()) {
+                            progressDialog.dismiss();
+                        }
                         // Handle the error response
                         Toast.makeText(LoginActivity.this, "Login Failed: Invalid credentials", Toast.LENGTH_LONG).show();
                     }
