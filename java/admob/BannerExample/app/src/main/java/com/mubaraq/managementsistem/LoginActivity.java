@@ -1,6 +1,6 @@
 package com.mubaraq.managementsistem;
-
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +12,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -67,14 +68,86 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // Handle the successful response
                         try {
                             String name = response.getString("name");
-                            // Process other fields as needed
+                            String userEmail = response.getString("email");
+                            int jmlBaner = response.getInt("jml_baner");
+                            int isVPNProtection = response.getInt("isVPNProtection");
+
+                            Log.e("API_Response", "Response received: " + response.toString());
+
+                            // Handle categorized ads safely
+                            // Menggunakan optJSONArray untuk memeriksa dan mendapatkan array
+                            JSONArray layarPembukaAplikasi = response.optJSONArray("Iklan_Layar_Pembuka_Aplikasi");
+                            if (layarPembukaAplikasi != null) {
+                                for (int i = 0; i < layarPembukaAplikasi.length(); i++) {
+                                    String adCode = layarPembukaAplikasi.getString(i);
+
+                                }
+                            }
+
+                            JSONArray bannerAdaptif = response.optJSONArray("Iklan_Banner_Adaptif");
+                            if (bannerAdaptif != null) {
+                                for (int i = 0; i < bannerAdaptif.length(); i++) {
+                                    String adCode = bannerAdaptif.getString(i);
+                                    Log.d("Iklan_Banner_Adaptif", "Ad Code " + (i + 1) + ": " + adCode);
+                                }
+                            }
+
+                            JSONArray bannerUkuranTetap = response.optJSONArray("Iklan_Banner_Ukuran_Tetap");
+                            if (bannerUkuranTetap != null) {
+                                for (int i = 0; i < bannerUkuranTetap.length(); i++) {
+                                    String adCode = bannerUkuranTetap.getString(i);
+                                    Log.d("Iklan_Banner_Ukuran_Tetap", "Ad Code " + (i + 1) + ": " + adCode);
+                                }
+                            }
+
+                            JSONArray interstisial = response.optJSONArray("Iklan_Interstisial");
+                            if (interstisial != null) {
+                                for (int i = 0; i < interstisial.length(); i++) {
+                                    String adCode = interstisial.getString(i);
+                                    Log.d("Iklan_Interstisial", "Ad Code " + (i + 1) + ": " + adCode);
+                                }
+                            }
+
+                            JSONArray iklanReward = response.optJSONArray("Iklan_Iklan_Reward");
+                            if (iklanReward != null) {
+                                for (int i = 0; i < iklanReward.length(); i++) {
+                                    String adCode = iklanReward.getString(i);
+                                    Log.d("Iklan_Iklan_Reward", "Ad Code " + (i + 1) + ": " + adCode);
+                                }
+                            }
+
+                            JSONArray interstisialReward = response.optJSONArray("Iklan_Interstisial_Reward");
+                            if (interstisialReward != null) {
+                                for (int i = 0; i < interstisialReward.length(); i++) {
+                                    String adCode = interstisialReward.getString(i);
+                                    Log.d("Iklan_Interstisial_Reward", "Ad Code " + (i + 1) + ": " + adCode);
+                                }
+                            }
+
+                            JSONArray nativeAds = response.optJSONArray("Iklan_Native");
+                            if (nativeAds != null) {
+                                for (int i = 0; i < nativeAds.length(); i++) {
+                                    String adCode = nativeAds.getString(i);
+                                    Log.d("Iklan_Native", "Ad Code " + (i + 1) + ": " + adCode);
+                                }
+                            }
+
+                            JSONArray videoNative = response.optJSONArray("Iklan_Video_Native");
+                            if (videoNative != null) {
+                                for (int i = 0; i < videoNative.length(); i++) {
+                                    String adCode = videoNative.getString(i);
+                                    Log.d("Iklan_Video_Native", "Ad Code " + (i + 1) + ": " + adCode);
+                                }
+                            }
+
+                            // Display success
                             Toast.makeText(LoginActivity.this, "Login Successful: " + name, Toast.LENGTH_LONG).show();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Toast.makeText(LoginActivity.this, "Parsing error, please try again.", Toast.LENGTH_LONG).show();
                         }
                     }
                 },
