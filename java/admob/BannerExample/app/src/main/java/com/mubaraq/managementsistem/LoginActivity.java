@@ -1,6 +1,8 @@
 package com.mubaraq.managementsistem;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,9 +20,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String LOGIN_URL = "https://zeeid.net/api/mobile/login";
+    private static final String PREFS_NAME = "DataLogin";
 
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -91,6 +97,26 @@ public class LoginActivity extends AppCompatActivity {
                             int isVPNProtection = response.getInt("isVPNProtection");
 
                             Log.e("API_Response", "Response received: " + response.toString());
+
+                            // Save data to SharedPreferences
+                            SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("name", name);
+                            editor.putString("email", userEmail);
+                            editor.putInt("jml_baner", jmlBaner);
+                            editor.putInt("isVPNProtection", isVPNProtection);
+
+                            // Save arrays
+                            saveJSONArrayToPreferences(editor, "Iklan_Layar_Pembuka_Aplikasi", response.optJSONArray("Iklan_Layar_Pembuka_Aplikasi"));
+                            saveJSONArrayToPreferences(editor, "Iklan_Banner_Adaptif", response.optJSONArray("Iklan_Banner_Adaptif"));
+                            saveJSONArrayToPreferences(editor, "Iklan_Banner_Ukuran_Tetap", response.optJSONArray("Iklan_Banner_Ukuran_Tetap"));
+                            saveJSONArrayToPreferences(editor, "Iklan_Interstisial", response.optJSONArray("Iklan_Interstisial"));
+                            saveJSONArrayToPreferences(editor, "Iklan_Iklan_Reward", response.optJSONArray("Iklan_Iklan_Reward"));
+                            saveJSONArrayToPreferences(editor, "Iklan_Interstisial_Reward", response.optJSONArray("Iklan_Interstisial_Reward"));
+                            saveJSONArrayToPreferences(editor, "Iklan_Native", response.optJSONArray("Iklan_Native"));
+                            saveJSONArrayToPreferences(editor, "Iklan_Video_Native", response.optJSONArray("Iklan_Video_Native"));
+
+                            editor.apply(); // Save changes
 
                             // Handle categorized ads safely
                             // Menggunakan optJSONArray untuk memeriksa dan mendapatkan array
@@ -182,5 +208,21 @@ public class LoginActivity extends AppCompatActivity {
 
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
+    }
+
+    private void saveJSONArrayToPreferences(SharedPreferences.Editor editor, String key, JSONArray jsonArray) {
+        if (jsonArray != null) {
+            Set<String> set = new HashSet<>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                try {
+                    set.add(jsonArray.getString(i));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            editor.putStringSet(key, set);
+        } else {
+            editor.remove(key); // Remove key if JSONArray is null
+        }
     }
 }
