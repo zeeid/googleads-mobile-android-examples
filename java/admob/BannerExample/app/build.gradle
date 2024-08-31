@@ -23,4 +23,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.gms:play-services-ads:23.3.0'
     implementation 'com.google.android.ump:user-messaging-platform:3.0.0'
+
+    implementation 'com.android.volley:volley:1.2.1'
 }
