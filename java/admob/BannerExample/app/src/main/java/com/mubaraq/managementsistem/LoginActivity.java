@@ -2,6 +2,7 @@ package com.mubaraq.managementsistem;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -186,6 +187,10 @@ public class LoginActivity extends AppCompatActivity {
 
                             // Display success
                             Toast.makeText(LoginActivity.this, "Login Successful: " + name, Toast.LENGTH_LONG).show();
+
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
