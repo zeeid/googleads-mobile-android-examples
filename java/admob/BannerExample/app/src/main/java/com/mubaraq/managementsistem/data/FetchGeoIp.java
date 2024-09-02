@@ -29,7 +29,7 @@ public class FetchGeoIp extends AsyncTask<Void,Void,Void> {
 
         BufferedReader bufferedReader = null;
         try {
-            URL url = new URL("http://ip-api.com/json/");
+            URL url = new URL("http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             InputStream inputStream = httpURLConnection.getInputStream();
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -51,6 +51,11 @@ public class FetchGeoIp extends AsyncTask<Void,Void,Void> {
                     "Time Zone : "+JO.getString("timezone")+"\n"+
                     "Latitude : "+JO.getString("lat")+"\n"+
                     "Longitude : "+JO.getString("lon")+"\n"+
+
+                    "mobile : "+JO.getString("mobile")+"\n"+
+                    "proxy : "+JO.getString("proxy")+"\n"+
+                    "hosting : "+JO.getString("hosting")+"\n"+
+
                     "ISP : "+JO.getString("isp")+"\n\n\n";
 
 
