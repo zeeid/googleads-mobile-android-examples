@@ -112,7 +112,7 @@ public class InataRoomActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("DataLogin", Context.MODE_PRIVATE);
 
         // Mengambil array ads sebagai Set
-        Set<String> layarPembukaAplikasiSet = sharedPref.getStringSet("Iklan_Layar_Pembuka_Aplikasi", new HashSet<>());
+        Set<String> layarPembukaAplikasiSet = sharedPref.getStringSet("Iklan_Interstisial", new HashSet<>());
 
         // Konversi Set menjadi array
         String[] layarPembukaAplikasiArray = layarPembukaAplikasiSet.toArray(new String[0]);
@@ -149,6 +149,11 @@ public class InataRoomActivity extends AppCompatActivity {
 
         maxsuccess  = sharedPref.getInt("maxsuccess", 0);
         maxfail     = sharedPref.getInt("maxfail", 0);
+
+        Log.d("SettingsLog", "maxsuccess: " + maxsuccess);
+        Log.d("SettingsLog", "maxfail: " + maxfail);
+        Log.d("SettingsLog", "berhasilt: " + berhasilt);
+        Log.d("SettingsLog", "gagalt: " + gagalt);
 
         if (gagalt > maxfail || berhasilt > maxsuccess) {
             String message;
@@ -484,35 +489,39 @@ public class InataRoomActivity extends AppCompatActivity {
 
     public void countDownTimeAR(){
 
-        if (countDownTimerAR == null) countDownTimerAR = new CountDownTimer(VARIABELS.getInteger(MenuSetting.DURATIONRELOADINTERSTITIAL,this,60)*1000, 1000) {
+        // Initialize the CountDownTimer for 60 seconds, with 1-second intervals
+        if (countDownTimerAR == null) {
+            countDownTimerAR = new CountDownTimer(TimerInata * 1000L, 1000) {
 
-            @SuppressLint("SetTextI18n")
-            public void onTick(long millisUntilFinished) {
-                times.setText(millisUntilFinished/1000+" s");
-            }
-
-            public void onFinish() {
-                if(autoclose){
-                    // Menutup aktivitas saat ini
-                    finish();
-
-                    if(countDownTimerAR != null) {
-                        countDownTimerAR.cancel();
-                        countDownTimerAR = null;
-                    }
-
-                    Intent intent;
-                    if (mixbanerinter){
-                        // Membuka BananaFixedActivity
-                        intent = new Intent(InataRoomActivity.this, InataRoomActivity.class);
-                    }else{
-                        intent = new Intent(InataRoomActivity.this, InataRoomActivity.class);
-                    }
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                @SuppressLint("SetTextI18n")
+                public void onTick(long millisUntilFinished) {
+                    times.setText(millisUntilFinished / 1000 + " s");
                 }
-            }
-        }.start();
+
+                public void onFinish() {
+                    if (autoclose) {
+                        // Close the current activity
+                        finish();
+
+                        if (countDownTimerAR != null) {
+                            countDownTimerAR.cancel();
+                            countDownTimerAR = null;
+                        }
+
+                        Intent intent;
+                        if (mixbanerinter) {
+                            // Open BananaFixedActivity (You might want to change this to BananaFixedActivity)
+                            intent = new Intent(InataRoomActivity.this, InataRoomActivity.class);
+                        } else {
+                            // Open InataRoomActivity (stays the same)
+                            intent = new Intent(InataRoomActivity.this, InataRoomActivity.class);
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                }
+            }.start();
+        }
     }
 
 

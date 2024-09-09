@@ -203,8 +203,8 @@ public class MainActivity extends AppCompatActivity {
         buttonInata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, MenuInata.class);
-//                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, InataRoomActivity.class);
+                startActivity(intent);
             }
         });
 
