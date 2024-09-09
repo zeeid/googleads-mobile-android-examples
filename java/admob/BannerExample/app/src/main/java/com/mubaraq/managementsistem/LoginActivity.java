@@ -94,18 +94,46 @@ public class LoginActivity extends AppCompatActivity {
 
                             String name = response.getString("name");
                             String userEmail = response.getString("email");
-                            int jmlBaner = response.getInt("jml_baner");
-                            int isVPNProtection = response.getInt("isVPNProtection");
 
-                            Log.e("API_Response", "Response received: " + response.toString());
+                            int jml_baner       = response.getInt("jml_baner");
+                            int ReLoadBaner     = response.getInt("ReLoadBaner");
+                            int TimerBaner      = response.getInt("TimerBaner");
+                            int ReLoadInata     = response.getInt("ReLoadInata");
+                            int jml_inata       = response.getInt("jml_inata");
+                            int TimerInata      = response.getInt("TimerInata");
+                            int isClearCache    = response.getInt("isClearCache");
+                            int isVPNProtection = response.getInt("isVPNProtection");
+                            int isTestAds       = response.getInt("isTestAds");
+                            int isRotation      = response.getInt("isRotation");
+                            int isMixadstype    = response.getInt("isMixadstype");
+                            int isIndoprot      = response.getInt("isIndoprot");
+                            int isKeepgoing     = response.getInt("isKeepgoing");
+                            int maxsuccess      = response.getInt("maxsuccess");
+                            int maxfail         = response.getInt("maxfail");
+
+
+                            //Log.e("API_Response", "Response received: " + response.toString());
 
                             // Save data to SharedPreferences
                             SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putString("name", name);
                             editor.putString("email", userEmail);
-                            editor.putInt("jml_baner", jmlBaner);
+                            editor.putInt("jml_baner", jml_baner);
+                            editor.putInt("ReLoadBaner", ReLoadBaner);
+                            editor.putInt("TimerBaner", TimerBaner);
+                            editor.putInt("ReLoadInata", ReLoadInata);
+                            editor.putInt("jml_inata", jml_inata);
+                            editor.putInt("TimerInata", TimerInata);
+                            editor.putInt("isClearCache", isClearCache);
                             editor.putInt("isVPNProtection", isVPNProtection);
+                            editor.putInt("isTestAds", isTestAds);
+                            editor.putInt("isRotation", isRotation);
+                            editor.putInt("isMixadstype", isMixadstype);
+                            editor.putInt("isIndoprot", isIndoprot);
+                            editor.putInt("isKeepgoing", isKeepgoing);
+                            editor.putInt("maxsuccess", maxsuccess);
+                            editor.putInt("maxfail", maxfail);
 
                             // Save arrays
                             saveJSONArrayToPreferences(editor, "Iklan_Layar_Pembuka_Aplikasi", response.optJSONArray("Iklan_Layar_Pembuka_Aplikasi"));
