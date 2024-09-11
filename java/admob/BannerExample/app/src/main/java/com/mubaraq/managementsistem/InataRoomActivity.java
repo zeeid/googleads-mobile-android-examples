@@ -231,8 +231,14 @@ public class InataRoomActivity extends AppCompatActivity {
         buttonsetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(InataRoomActivity.this, MenuSetting.class);
-//                startActivity(intent);
+                MobileAds.openAdInspector(
+                        InataRoomActivity.this,
+                        error -> {
+                            // Error will be non-null if ad inspector closed due to an error.
+                            if (error != null) {
+                                Toast.makeText(InataRoomActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
     }
@@ -410,25 +416,37 @@ public class InataRoomActivity extends AppCompatActivity {
         PopupMenu popup = new PopupMenu(this, menuItemView);
         popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
         popup.show();
+        popup
+                .getMenu()
+                .findItem(R.id.privacy_settings)
+                .setVisible(googleMobileAdsConsentManager.isPrivacyOptionsRequired());
         popup.setOnMenuItemClickListener(
-            popupMenuItem -> {
-                if (popupMenuItem.getItemId() == R.id.privacy_settings) {
-                    pauseGame();
-                    googleMobileAdsConsentManager.showPrivacyOptionsForm(
-                          this,
-                          formError -> {
-                              if (formError != null) {
-                                  Toast.makeText(
-                                      this,
-                                      formError.getMessage(),
-                                      Toast.LENGTH_SHORT).show();
-                              }
-                              resumeGame();
-                          });
-                    return true;
-                }
-                return false;
-            });
+                popupMenuItem -> {
+                    if (popupMenuItem.getItemId() == R.id.privacy_settings) {
+                        pauseGame();
+                        // Handle changes to user consent.
+                        googleMobileAdsConsentManager.showPrivacyOptionsForm(
+                                this,
+                                formError -> {
+                                    if (formError != null) {
+                                        Toast.makeText(this, formError.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                    resumeGame();
+                                });
+                        return true;
+                    } else if (popupMenuItem.getItemId() == R.id.ad_inspector) {
+                        MobileAds.openAdInspector(
+                                this,
+                                error -> {
+                                    // Error will be non-null if ad inspector closed due to an error.
+                                    if (error != null) {
+                                        Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                        return true;
+                    }
+                    return false;
+                });
         return super.onOptionsItemSelected(item);
     }
 

@@ -30,7 +30,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Setting"
+                    android:text="Inspeksi Sponsor"
                     android:textAllCaps="false"
                     tools:ignore="RtlCompat" />
 
