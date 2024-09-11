@@ -166,9 +166,6 @@ public class InataRoomActivity extends AppCompatActivity {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
             if (isTaskRoot()) {
-                // Jika aktivitas ini adalah aktivitas teratas (tidak ada aktivitas lain dalam tumpukan)
-                // tambahkan logika untuk membuka menu Home activity atau lakukan tindakan yang sesuai.
-                // Misalnya:
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             }
@@ -197,7 +194,6 @@ public class InataRoomActivity extends AppCompatActivity {
 
                 if (googleMobileAdsConsentManager.canRequestAds()) {
                     initializeMobileAdsSdk();
-                    Log.e("DISINI","MASUK SINI 1");
                 }
 
                 if (googleMobileAdsConsentManager.isPrivacyOptionsRequired()) {
@@ -206,7 +202,6 @@ public class InataRoomActivity extends AppCompatActivity {
             });
 
         if (googleMobileAdsConsentManager.canRequestAds()) {
-            Log.e("DISINI","MASUK SINI 2");
             initializeMobileAdsSdk();
         }
 
@@ -298,7 +293,6 @@ public class InataRoomActivity extends AppCompatActivity {
                         // Make sure to set your reference to null so you don't
                         // show it a second time.
                           InataRoomActivity.this.interstitialAd = null;
-                        Log.d("TAG", "The ad failed to show.");
                           logprogram.setText("Log : The ad failed to show.");
                       }
 
@@ -489,7 +483,6 @@ public class InataRoomActivity extends AppCompatActivity {
 
     private void initializeMobileAdsSdk() {
         if (isMobileAdsInitializeCalled.getAndSet(true)) {
-            Log.e("DISINI","MASUK DALAM");
           return;
         }
 
@@ -499,7 +492,6 @@ public class InataRoomActivity extends AppCompatActivity {
                   @Override
                   public void onInitializationComplete(InitializationStatus initializationStatus) {
                       // Load an ad.
-                      Log.e("DISINI","MASUK DALAM BERHASIL");
                       loadAd();
                   }
               });
