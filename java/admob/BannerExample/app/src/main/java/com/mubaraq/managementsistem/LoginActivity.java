@@ -40,6 +40,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Mengecek apakah sudah ada data di SharedPreferences
+        SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String storedName = sharedPref.getString("name", null);
+        String storedEmail = sharedPref.getString("email", null);
+
+        // Jika name dan email sudah ada di SharedPreferences, arahkan ke InataRoomActivity
+        if (storedName != null && storedEmail != null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();  // Tutup LoginActivity agar pengguna tidak bisa kembali ke halaman login
+            return;  // Hentikan eksekusi lebih lanjut di onCreate
+        }
+
         emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
         loginButton = findViewById(R.id.btn_login);
