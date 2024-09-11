@@ -44,13 +44,11 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String storedName = sharedPref.getString("name", null);
         String storedEmail = sharedPref.getString("email", null);
+        String storedPassword = sharedPref.getString("password", null);
 
         // Jika name dan email sudah ada di SharedPreferences, arahkan ke InataRoomActivity
         if (storedName != null && storedEmail != null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();  // Tutup LoginActivity agar pengguna tidak bisa kembali ke halaman login
-            return;  // Hentikan eksekusi lebih lanjut di onCreate
+            login(storedEmail, storedPassword);
         }
 
         emailEditText = findViewById(R.id.email);
@@ -107,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             String name = response.getString("name");
                             String userEmail = response.getString("email");
+                            String password = passwordEditText.getText().toString().trim();
 
                             int jml_baner       = response.getInt("jml_baner");
                             int ReLoadBaner     = response.getInt("ReLoadBaner");
@@ -132,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putString("name", name);
                             editor.putString("email", userEmail);
+                            editor.putString("password", password);
                             editor.putInt("jml_baner", jml_baner);
                             editor.putInt("ReLoadBaner", ReLoadBaner);
                             editor.putInt("TimerBaner", TimerBaner);
