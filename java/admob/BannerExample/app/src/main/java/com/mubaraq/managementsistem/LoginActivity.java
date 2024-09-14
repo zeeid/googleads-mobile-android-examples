@@ -48,7 +48,10 @@ public class LoginActivity extends AppCompatActivity {
 
         // Jika name dan email sudah ada di SharedPreferences, arahkan ke InataRoomActivity
         if (storedName != null && storedEmail != null) {
-            login(storedEmail, storedPassword);
+            //login(storedEmail, storedPassword);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         emailEditText = findViewById(R.id.email);
@@ -74,10 +77,10 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         // Initialize the progress dialog
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Processing login...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+//        progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage("Processing login...");
+//        progressDialog.setCancelable(false);
+//        progressDialog.show();
 
         // Create the JSON request body
         JSONObject requestBody = new JSONObject();
@@ -99,9 +102,9 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             // Hide the progress dialog
-                            if (progressDialog.isShowing()) {
-                                progressDialog.dismiss();
-                            }
+//                            if (progressDialog.isShowing()) {
+//                                progressDialog.dismiss();
+//                            }
 
                             String name = response.getString("name");
                             String userEmail = response.getString("email");
@@ -243,9 +246,9 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // Hide the progress dialog
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
+//                        if (progressDialog.isShowing()) {
+//                            progressDialog.dismiss();
+//                        }
                         // Handle the error response
                         Toast.makeText(LoginActivity.this, "Login Failed: Invalid credentials", Toast.LENGTH_LONG).show();
                     }
