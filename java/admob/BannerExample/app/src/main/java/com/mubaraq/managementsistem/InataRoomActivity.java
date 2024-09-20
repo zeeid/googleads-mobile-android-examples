@@ -177,30 +177,30 @@ public class InataRoomActivity extends AppCompatActivity {
         Log.d(TAG, "Google Mobile Ads SDK Version: " + MobileAds.getVersion());
 
         googleMobileAdsConsentManager =
-            GoogleMobileAdsConsentManager.getInstance(getApplicationContext());
+                GoogleMobileAdsConsentManager.getInstance(getApplicationContext());
         googleMobileAdsConsentManager.gatherConsent(
-            this,
-            consentError -> {
-                if (consentError != null) {
-                    Log.w(
-                        TAG,
-                        String.format(
-                            "%s: %s",
-                            consentError.getErrorCode(),
-                            consentError.getMessage()));
-                }
+                this,
+                consentError -> {
+                    if (consentError != null) {
+                        // Consent not obtained in current session.
+                        Log.w(
+                                TAG,
+                                String.format("%s: %s", consentError.getErrorCode(), consentError.getMessage()));
+                    }
 
-                startGame();
+                    startGame();
 
-                if (googleMobileAdsConsentManager.canRequestAds()) {
-                    initializeMobileAdsSdk();
-                }
+                    if (googleMobileAdsConsentManager.canRequestAds()) {
+                        initializeMobileAdsSdk();
+                    }
 
-                if (googleMobileAdsConsentManager.isPrivacyOptionsRequired()) {
-                    invalidateOptionsMenu();
-                }
-            });
+                    if (googleMobileAdsConsentManager.isPrivacyOptionsRequired()) {
+                        // Regenerate the options menu to include a privacy setting.
+                        invalidateOptionsMenu();
+                    }
+                });
 
+        // This sample attempts to load ads using consent obtained in the previous session.
         if (googleMobileAdsConsentManager.canRequestAds()) {
             initializeMobileAdsSdk();
         }
@@ -238,7 +238,7 @@ public class InataRoomActivity extends AppCompatActivity {
         });
     }
 
-    private void loadAd() {
+    public void loadAd() {
         requestot++;
         InterstialMe.saveInteger(InterstialMe.JMLREQUEST,requestot,InataRoomActivity.this);
         dataC();
@@ -405,7 +405,7 @@ public class InataRoomActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+            public boolean onOptionsItemSelected(MenuItem item) {
         View menuItemView = findViewById(item.getItemId());
         PopupMenu popup = new PopupMenu(this, menuItemView);
         popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
@@ -486,15 +486,15 @@ public class InataRoomActivity extends AppCompatActivity {
           return;
         }
 
-        MobileAds.initialize(
-              this,
-              new OnInitializationCompleteListener() {
-                  @Override
-                  public void onInitializationComplete(InitializationStatus initializationStatus) {
-                      // Load an ad.
-                      loadAd();
-                  }
-              });
+        new Thread(
+        () -> {
+            // Initialize the Google Mobile Ads SDK on a background thread.
+            MobileAds.initialize(this, initializationStatus -> {});
+
+            // Load an ad on the main thread.
+            runOnUiThread(() -> loadAd());
+        })
+        .start();
     }
 
     public void countDownTimeAR(){
@@ -524,7 +524,7 @@ public class InataRoomActivity extends AppCompatActivity {
                             intent = new Intent(InataRoomActivity.this, InataRoomActivity.class);
                         } else {
                             // Open InataRoomActivity (stays the same)
-                            intent = new Intent(InataRoomActivity.this, InataRoomActivity.class);
+                            intent = new Intent(InataRoomActivity.this, InataRoomActivity_level1.class);
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
