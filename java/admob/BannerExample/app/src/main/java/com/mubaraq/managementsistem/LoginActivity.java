@@ -123,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                             int isMixadstype    = response.getInt("isMixadstype");
                             int isIndoprot      = response.getInt("isIndoprot");
                             int isKeepgoing     = response.getInt("isKeepgoing");
+                            int isAcakSponsor   = response.getInt("isAcakSponsor");
                             int maxsuccess      = response.getInt("maxsuccess");
                             int maxfail         = response.getInt("maxfail");
 
@@ -148,6 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putInt("isMixadstype", isMixadstype);
                             editor.putInt("isIndoprot", isIndoprot);
                             editor.putInt("isKeepgoing", isKeepgoing);
+                            editor.putInt("isAcakSponsor", isAcakSponsor);
                             editor.putInt("maxsuccess", maxsuccess);
                             editor.putInt("maxfail", maxfail);
 

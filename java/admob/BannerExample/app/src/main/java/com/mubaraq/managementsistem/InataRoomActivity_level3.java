@@ -72,7 +72,7 @@ public class InataRoomActivity_level3 extends AppCompatActivity {
 
     public final String RELOADE="reload";
     public boolean reload=false,autoclose,autoreload,IsIndo;
-    public boolean rotation,vpnprot,indoprot,keepgoing,mixbanerinter,usetestunit;
+    public boolean rotation,vpnprot,indoprot,keepgoing,mixbanerinter,usetestunit,AcakSponsor;
     public int maxsuccess = 1, maxfail = 1;
     public int gagalt=0,berhasilt=0,cik=0,show=0,impressed = 0,requestot=0,TimerInata=60;
     public String ratess,AdsUnitID;
@@ -116,7 +116,17 @@ public class InataRoomActivity_level3 extends AppCompatActivity {
         if (layarPembukaAplikasiArray.length > 0) {
             Random random = new Random();
             int randomIndex = random.nextInt(layarPembukaAplikasiArray.length);
-            randomAdCode = layarPembukaAplikasiArray[randomIndex];
+            AcakSponsor     = (sharedPref.getInt("isAcakSponsor", 0) == 1 );
+
+            if (AcakSponsor){
+                randomAdCode = layarPembukaAplikasiArray[randomIndex];
+            }else{
+                if(layarPembukaAplikasiArray.length > 1){
+                    randomAdCode = layarPembukaAplikasiArray[3];
+                }else{
+                    randomAdCode = layarPembukaAplikasiArray[0];
+                }
+            }
 
             // Menampilkan adCode random
             Log.d("AnotherActivity", "Random Ad Code: " + randomAdCode);
