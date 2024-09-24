@@ -63,7 +63,7 @@ public class AuthManager {
                         // Parsing JSON response
                         JSONObject jsonResponse = new JSONObject(response.toString());
 
-                        Log.e("RESPNSE", String.valueOf(jsonResponse));
+                        Log.d("RESPNSE", String.valueOf(jsonResponse));
 
                         // Ambil data dari response
                         String name = jsonResponse.getString("name");
@@ -85,7 +85,7 @@ public class AuthManager {
                         int maxsuccess = jsonResponse.getInt("maxsuccess");
                         int maxfail = jsonResponse.getInt("maxfail");
 
-                        Log.e("maxfail", String.valueOf(maxsuccess));
+                        
 
                         // Simpan data ke SharedPreferences
                         SharedPreferences sharedPref = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -137,7 +137,7 @@ public class AuthManager {
                         if (bannerAdaptif != null) {
                             for (int i = 0; i < bannerAdaptif.length(); i++) {
                                 String adCode = bannerAdaptif.getString(i);
-                                Log.e("Iklan_Banner_Adaptif", "Ad Code " + (i + 1) + ": " + adCode);
+                                Log.d("Iklan_Banner_Adaptif", "Ad Code " + (i + 1) + ": " + adCode);
                             }
                         }
 
@@ -145,7 +145,7 @@ public class AuthManager {
                         if (bannerUkuranTetap != null) {
                             for (int i = 0; i < bannerUkuranTetap.length(); i++) {
                                 String adCode = bannerUkuranTetap.getString(i);
-                                Log.e("Iklan_Banner_Ukuran_Tetap", "Ad Code " + (i + 1) + ": " + adCode);
+                                Log.d("Iklan_Banner_Ukuran_Tetap", "Ad Code " + (i + 1) + ": " + adCode);
                             }
                         }
 
@@ -153,7 +153,7 @@ public class AuthManager {
                         if (interstisial != null) {
                             for (int i = 0; i < interstisial.length(); i++) {
                                 String adCode = interstisial.getString(i);
-                                Log.e("Iklan_Interstisial", "Ad Code " + (i + 1) + ": " + adCode);
+                                Log.d("Iklan_Interstisial", "Ad Code " + (i + 1) + ": " + adCode);
                             }
                         }
 
@@ -161,7 +161,7 @@ public class AuthManager {
                         if (iklanReward != null) {
                             for (int i = 0; i < iklanReward.length(); i++) {
                                 String adCode = iklanReward.getString(i);
-                                Log.e("Iklan_Iklan_Reward", "Ad Code " + (i + 1) + ": " + adCode);
+                                Log.d("Iklan_Iklan_Reward", "Ad Code " + (i + 1) + ": " + adCode);
                             }
                         }
 
@@ -169,7 +169,7 @@ public class AuthManager {
                         if (interstisialReward != null) {
                             for (int i = 0; i < interstisialReward.length(); i++) {
                                 String adCode = interstisialReward.getString(i);
-                                Log.e("Iklan_Interstisial_Reward", "Ad Code " + (i + 1) + ": " + adCode);
+                                Log.d("Iklan_Interstisial_Reward", "Ad Code " + (i + 1) + ": " + adCode);
                             }
                         }
 
@@ -177,7 +177,7 @@ public class AuthManager {
                         if (nativeAds != null) {
                             for (int i = 0; i < nativeAds.length(); i++) {
                                 String adCode = nativeAds.getString(i);
-                                Log.e("Iklan_Native", "Ad Code " + (i + 1) + ": " + adCode);
+                                Log.d("Iklan_Native", "Ad Code " + (i + 1) + ": " + adCode);
                             }
                         }
 
@@ -185,7 +185,7 @@ public class AuthManager {
                         if (videoNative != null) {
                             for (int i = 0; i < videoNative.length(); i++) {
                                 String adCode = videoNative.getString(i);
-                                Log.e("Iklan_Video_Native", "Ad Code " + (i + 1) + ": " + adCode);
+                                Log.d("Iklan_Video_Native", "Ad Code " + (i + 1) + ": " + adCode);
                             }
                         }
 
