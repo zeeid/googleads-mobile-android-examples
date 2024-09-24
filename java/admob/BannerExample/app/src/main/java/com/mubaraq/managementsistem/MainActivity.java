@@ -3,6 +3,7 @@ package com.mubaraq.managementsistem;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mubaraq.managementsistem.data.FetchGeoIp;
+import com.mubaraq.managementsistem.login.AuthManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Home Activity";
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
     private GoogleMobileAdsConsentManager googleMobileAdsConsentManager;
+    private static final String PREFS_NAME = "DataLogin";
 
     private class GetAdvertisingIdTask extends AsyncTask<Void, Void, String> {
 
@@ -249,6 +252,38 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                Intent intent = new Intent(MainActivity.this, MenuSetting.class);
 //                startActivity(intent);
+            }
+        });
+
+        // Tombol untuk sinkronisasi akun
+        Button buttonSyncAccount = findViewById(R.id.buttonSyncAccount);
+        buttonSyncAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Mengecek apakah sudah ada data di SharedPreferences
+                SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+                String storedName = sharedPref.getString("name", null);
+                String storedEmail = sharedPref.getString("email", null);
+                String storedPassword = sharedPref.getString("password", null);
+
+                // Panggil fungsi login di AuthManager dengan callback untuk hasil login
+                AuthManager.performLogin(MainActivity.this, storedEmail, storedPassword, new AuthManager.LoginCallback() {
+                    @Override
+                    public void onLoginResult(boolean success) {
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (success) {
+                                    // Login berhasil
+                                    Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // Login gagal
+                                    Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                });
             }
         });
 

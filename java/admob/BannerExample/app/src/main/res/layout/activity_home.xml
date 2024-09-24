@@ -82,13 +82,21 @@
         android:text="Refresh"
         tools:ignore="HardcodedText" />
 
+    <Button
+        android:id="@+id/buttonSyncAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonRefresh"
+        android:text="Sync Data Account" />
+
+
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/buttonRefresh"
-        android:text="TextView"
+        android:layout_below="@+id/buttonSyncAccount"
+        android:text="DATA IP USER"
         tools:ignore="HardcodedText" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
